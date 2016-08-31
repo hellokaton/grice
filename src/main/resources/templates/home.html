@@ -1,0 +1,184 @@
+#include('./base.html')
+<div class="ui inverted vertical masthead center aligned segment">
+    #include('./nav.html')
+    <div class="ui text container banner">
+        <img src="/static/img/banner.png"/>
+        <h2>aahhasas</h2>
+
+        <a class="ui huge inverted blue basic animated button" tabindex="0" href="">
+            <div class="visible content">&nbsp;&nbsp;&nbsp;&nbsp;get start&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            <div class="hidden content">
+                <i class="right arrow icon"></i>
+            </div>
+        </a>
+
+        <div id="github-stats">
+            <iframe id="github-star" src="" allowtransparency="true" frameborder="0" scrolling="0" ></iframe>
+            <iframe id="github-fork" src="" allowtransparency="true" frameborder="0" scrolling="0" ></iframe>
+        </div>
+    </div>
+</div>
+
+<div class="ui vertical stripe segment">
+    <div class="ui aligned stackable three column grid container">
+        <div class="column">
+            <h3 class="ui header">
+                <i class="leaf icon"></i> asasasasas
+            </h3>
+            <p>{sdadad</p>
+        </div>
+        <div class="column">
+            <h3 class="ui header">
+                <i class="rocket icon"></i> 90ms
+            </h3>
+            <p>009090</p>
+        </div>
+        <div class="column">
+            <h3 class="ui header">
+                <i class="cubes icon"></i> search
+            </h3>
+            <p>sousuo</p>
+        </div>
+    </div>
+</div>
+
+<div class="ui vertical stripe segment">
+    <div class="ui aligned stackable two column grid container">
+        <div class="column">
+            <h3 class="ui header">
+                <i class="code icon"></i> minimal
+            </h3>
+            <div class="markdown">
+		  	<pre><code class="language-java hljs"><span class="hljs-comment">/**
+ * Service
+ */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> </span>{
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        Blade blade = me();
+        <span class="hljs-comment">// creatger</span>
+        blade.get(<span class="hljs-string">"/"</span>, <span class="hljs-keyword">new</span> RouteHandler() {
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">handle</span><span class="hljs-params">(Request request, Response response)</span> </span>{
+                response.html(<span class="hljs-string">"&lt;h1&gt;Hello Blade！&lt;/h1&gt;"</span>);
+            }
+        });
+
+        <span class="hljs-comment">// start_by_port</span>
+        blade.start();
+    }
+}
+</code></pre>
+            </div>
+        </div>
+        <div class="column">
+            <h3 class="ui header">
+                <i class="cubes icon"></i> griup
+            </h3>
+            <div class="markdown">
+			<pre><code class="language-java hljs"><span class="hljs-comment">// confif_ouhasas</span>
+blade.route(<span class="hljs-string">"/hello"</span>, NormalSample.class, <span class="hljs-string">"hello"</span>);
+blade.route(<span class="hljs-string">"/save_user"</span>, NormalSample.class, <span class="hljs-string">"post:saveUser"</span>);
+
+<span class="hljs-comment">// oualksa</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NormalSample</span> </span>{
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">hello</span><span class="hljs-params">(Request request, Response response)</span></span>{
+        System.out.println(<span class="hljs-string">"进入hello~"</span>);
+        request.attribute(<span class="hljs-string">"name"</span>, <span class="hljs-string">"rose baby"</span>);
+        response.text(<span class="hljs-string">"hi"</span>);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">saveUser</span><span class="hljs-params">(Request request, Response response)</span></span>{
+        System.out.println(<span class="hljs-string">"进入saveUser~"</span>);
+        <span class="hljs-comment">// save_opt</span>
+    }
+}
+</code></pre>
+            </div>
+        </div>
+
+        <div class="column">
+            <h3 class="ui header">
+                <i class="newspaper icon"></i> pachong
+            </h3>
+            <div class="markdown">
+			<pre><code class="language-java hljs"><span class="hljs-comment">// asasaas</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Soup</span> </span>{
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> start_page = <span class="hljs-number">1</span>,end_page = <span class="hljs-number">100</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String REG =
+        <span class="hljs-string">"&lt;div.*?body\"&gt;([\\s\\S]*?)&lt;p&gt;([\\s\\S]*?)&lt;/p&gt;([\\s\\S]*?)&lt;/div&gt;"</span>;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> String <span class="hljs-title">getBody</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-keyword">return</span> HttpRequest
+        .get(String.format(<span class="hljs-string">"http://soup.setin.cn/p/%d.html"</span>, start_page))
+        .userAgent(<span class="hljs-string">"Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)"</span>)
+        .body();
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">execute</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-comment">//...</span>
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        Soup joke = <span class="hljs-keyword">new</span> Soup();
+        joke.execute();
+    }
+}
+</code></pre>
+                <p><a href="https://github.com/blade-samples/spider/blob/master/src/main/java/me/biezhi/splider/Soup.java">cododod</a></p>
+            </div>
+        </div>
+        <div class="column">
+            <h3 class="ui header">
+                <i class="world icon"></i> fdsds
+            </h3>
+            <div class="markdown">
+			<pre><code class="language-java hljs"><span class="hljs-comment">// query</span>
+List&lt;Post&gt; posts =
+    AR.find(<span class="hljs-string">"where title like ? order by id desc limit ?,?"</span>, title, page, count)
+    .list(Post.class);
+
+<span class="hljs-comment">// save</span>
+String sql = <span class="hljs-string">"insert into t_post(title, content, create_time) values(?,?,?)"</span>;
+AR.update(sql, title, content, <span class="hljs-keyword">new</span> Date()).executeAndUpdate();
+
+<span class="hljs-comment">// update</span>
+AR.update(<span class="hljs-string">"update t_post set title = ? where id = ?"</span>,title, id).executeAndUpdate();
+
+<span class="hljs-comment">// delete</span>
+AR.update(<span class="hljs-string">"delete from t_post where id = ?"</span>,id).executeAndUpdate()
+
+<span class="hljs-comment">// find by id</span>
+Topic topic = AR.findById(Topic.class, tid);
+
+<span class="hljs-comment">// pagination</span>
+QueryParam hp = QueryParam.me();
+hp.eq(<span class="hljs-string">"status"</span>, <span class="hljs-number">1</span>).orderby(<span class="hljs-string">"tid, comments, views desc"</span>).add(<span class="hljs-string">"limit 10"</span>);
+
+Page&lt;Topic&gt; topicPage = AR.find(queryParam).page(Topic.class);
+</code></pre>
+            </div>
+        </div>
+    </div>
+</div>
+{% include Page.FooterTplPath %}
+
+<script type="text/javascript">
+    (function() {
+        function async_load(){
+            var s = document.getElementById('github-star');
+            s.src = 'https://ghbtns.com/github-btn.html?user=biezhi&repo=blade&type=star&count=true';
+            var f = document.getElementById('github-fork');
+            f.src = 'https://ghbtns.com/github-btn.html?user=biezhi&repo=blade&type=fork&count=true';
+        }
+        if (window.attachEvent)
+            window.attachEvent('onload', async_load);
+        else
+            window.addEventListener('load', async_load, false);
+    })();
+</script>
+
+
+</body>
+</html>
