@@ -72,13 +72,13 @@ public class IndexController {
         return mav;
     }
 	
-	@Route(value = "docs/:doc_name", method = HttpMethod.GET)
+	@Route(value = "docs/:node", method = HttpMethod.POST)
 	@JSON
-    public RestResponse<Doc> rootDetail(Request request, @PathVariable("doc_name") String docName){
+    public RestResponse<Doc> rootDetail(Request request, @PathVariable("node") String node){
 		
 		String target = $().environment().getString("grice.docs.target");
 		String lang = Constant.VIEW_CONTEXT.getValue("Lang").toString();
-		String path = target + File.separatorChar + lang + File.separatorChar + docName + ".md";
+		String path = target + File.separatorChar + lang + File.separatorChar + node + File.separatorChar + "README.md";
 		
 		RestResponse<Doc> restResponse = new RestResponse<Doc>();
 		Doc doc = MarkdownKit.getContent(path);
@@ -86,7 +86,46 @@ public class IndexController {
         return restResponse;
     }
 	
+	@Route(value = "docs/:node", method = HttpMethod.GET)
+    public ModelAndView showRootDetail(Request request, @PathVariable("node") String node){
+		
+		String target = $().environment().getString("grice.docs.target");
+		String lang = Constant.VIEW_CONTEXT.getValue("Lang").toString();
+		String path = target + File.separatorChar + lang + File.separatorChar + node + File.separatorChar + "README.md";
+		
+		List<Node> nodes = this.getNodes();
+		
+		ModelAndView mav = new ModelAndView();
+		Doc doc = MarkdownKit.getContent(path);
+		mav.add("title", doc.getTitle());
+		mav.add("nodes", nodes);
+		mav.add("content", doc.getContent());
+		mav.setView("docs.html");
+        return mav;
+    }
+	
 	@Route(value = "docs/:node/:doc_name", method = HttpMethod.GET)
+    public ModelAndView showDetail(Request request, @PathVariable("node") String nodeName,@PathVariable("doc_name") String docName){
+		
+		ModelAndView mav = new ModelAndView();
+		
+		String target = $().environment().getString("grice.docs.target");
+		String lang = Constant.VIEW_CONTEXT.getValue("Lang").toString();
+		
+		List<Node> nodes = this.getNodes();
+		
+		String raw = target + File.separatorChar + lang + File.separatorChar + nodeName + File.separatorChar + docName + ".md";
+		
+		Doc doc = MarkdownKit.getContent(raw);
+		
+		mav.add("title", doc.getTitle());
+		mav.add("nodes", nodes);
+		mav.add("content", doc.getContent());
+		mav.setView("docs.html");
+        return mav;
+    }
+	
+	@Route(value = "docs/:node/:doc_name", method = HttpMethod.POST)
 	@JSON
     public RestResponse<Doc> docDetail(Request request, @PathVariable("node") String nodeName,@PathVariable("doc_name") String docName){
 		
@@ -99,5 +138,25 @@ public class IndexController {
 		restResponse.setPayload(doc);
         return restResponse;
     }
+	
+	private List<Node> getNodes(){
+		
+		String target = $().environment().getString("grice.docs.target");
+		String lang = Constant.VIEW_CONTEXT.getValue("Lang").toString();
+		String path = target + File.separatorChar + lang;
+		
+		List<Node> nodes = new ArrayList<Node>();
+		
+		File dir = new File(path);
+		File[] subDirs = dir.listFiles();
+		nodes = new ArrayList<Node>(subDirs.length);
+		for(File sub : subDirs){
+			Node node = new Node(sub.getPath());
+			node.setName(sub.getName());
+			nodes.add(node);
+		}
+		Collections.sort(nodes, comparator);
+		return nodes;
+	}
 	
 }

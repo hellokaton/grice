@@ -45,34 +45,6 @@
 </div>
 #include('./footer.html')
 <script type="text/javascript" src="http://cdn.bootcss.com/marked/0.3.6/marked.min.js"></script>
-<script type="text/javascript">
-
-$(document).ready(function () {
-	$('#content').html(marked($('#content').html()));
-});
-$('.nav-menus a').on('click', function(e){
-	e.preventDefault();
-	var this_ = $(this);
-	
-	$.ajax({
-        type:"GET",
-        url: this_.attr('href'),
-        cache:false,
-        dataType:"json",
-        success: function(result){
-        	if(result && result.success){
-        		this_.addClass('current').siblings().removeClass('current');
-        		var data = result.payload;
-        		$('#content').html(marked(data.content));
-        		var pos = document.title.indexOf(' - ');
-        		var title = document.title.substr(pos) + data.title;
-        		document.title = title;
-        	}
-        }
-    });
-	
-});
-
-</script>
+<script type="text/javascript" src="/static/js/docs.js"></script>
 </body>
 </html>
