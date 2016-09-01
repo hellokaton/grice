@@ -20,7 +20,7 @@ public class Extension {
 	public boolean isEnableDuoShuo() {
 		return enableDuoShuo;
 	}
-
+	
 	public void setEnableDuoShuo(boolean enableDuoShuo) {
 		this.enableDuoShuo = enableDuoShuo;
 	}

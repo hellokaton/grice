@@ -1,12 +1,10 @@
 package com.grice.model;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-import com.blade.kit.IOKit;
+import com.grice.kit.MarkdownKit;
 
 public class Node implements Comparable<Node> {
 	
@@ -24,37 +22,24 @@ public class Node implements Comparable<Node> {
 	public Node(String path) {
 		this.path = path;
 		String readme = path + File.separatorChar + "README.md";
-		BufferedReader br = null;
-		try {
-			br = new BufferedReader(new FileReader(readme));
-			String line;
-			boolean isContent = false;
-			int count = 0;
-			while ((line = br.readLine()) != null) {
-				if(line.indexOf("---") != -1){
-					count++;
-					continue;
-				}
-				if(count > 1){
-					isContent = true;
-				}
-				if(!isContent && line.indexOf("title") != -1){
-					int pos = line.indexOf(":");
-					this.title = line.substring(pos + 1).trim();
-				}
-				if(!isContent && line.indexOf("sort") != -1){
-					int pos = line.indexOf(":");
-					this.sort = Integer.valueOf(line.substring(pos + 1).trim());
-				}
-				if(!isContent && line.indexOf("root") != -1){
-					int pos = line.indexOf(":");
-					this.isRoot = Boolean.valueOf(line.substring(pos + 1).trim());
-				}
+		Doc doc = MarkdownKit.getContent(readme);
+		this.title = doc.getTitle();
+		this.isRoot = doc.isRoot();
+		this.sort = doc.getSort();
+		
+		File dir = new File(path);
+		File[] files = dir.listFiles();
+		this.docs = new ArrayList<Node>(files.length);
+		for(File file : files){
+			if(!"README.md".equals(file.getName())){
+				Node node = new Node();
+				Doc nodeDoc = MarkdownKit.getContent(file.getPath());
+				node.setTitle(nodeDoc.getTitle());
+				node.setName(file.getName().replaceFirst(".md", ""));
+				node.setSort(nodeDoc.getSort());
+				node.setRoot(nodeDoc.isRoot());
+				docs.add(node);
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			IOKit.closeQuietly(br);
 		}
 	}
 	
@@ -116,10 +101,10 @@ public class Node implements Comparable<Node> {
 
 	@Override
 	public int compareTo(Node o) {
-		if(o.sort > this.sort){
+		if(o.sort < this.sort){
 			return 1;
 		}
-		if(o.sort < this.sort){
+		if(o.sort > this.sort){
 			return -1;
 		}
 		return 0;

@@ -74,6 +74,10 @@ public class RouteConfig implements BaseConfig{
 		Constant.VIEW_CONTEXT.set(Navbar.class, "navbar", navbar);
 		
 		Extension extension = new Extension();
+		Boolean enableDuoShuo = $().environment().getBoolean("grice.extension.enableDuoShuo");
+		extension.setEnableDuoShuo(enableDuoShuo);
+		String duoShuoShortName = $().environment().getString("grice.extension.duoShuoShortName");
+		extension.setDuoShuoShortName(duoShuoShortName);
 		Constant.VIEW_CONTEXT.set(Extension.class, "extension", extension);
 		
 		/**********

@@ -1,19 +1,13 @@
 $(document).ready(function () {
 	$('.dropdown.link').dropdown({
 		action: 'hide'
-	})
-
-	// Emojify
-    emojify.setConfig({
-        img_dir: '/img/emoji'
-    });
-    emojify.run();
-
+	});
+	
     // Highlight JS
     if (typeof hljs != 'undefined') {
         hljs.initHighlightingOnLoad();
     }
-
+    
     // Set anchor.
     var headers = {};
     var skipped_first = false;
@@ -37,4 +31,4 @@ $(document).ready(function () {
         node = node.wrap('<div id="' + name + '" class="anchor-wrap" ></div>');
         node.append('<a class="anchor" href="#' + name + '"><span class="octicon octicon-link"></span></a>');
     });
-})
+});
