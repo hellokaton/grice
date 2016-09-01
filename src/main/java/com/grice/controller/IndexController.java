@@ -11,13 +11,11 @@ import com.blade.annotation.Controller;
 import com.blade.annotation.JSON;
 import com.blade.annotation.PathVariable;
 import com.blade.annotation.Route;
-import com.blade.kit.EncrypKit;
 import com.blade.view.ModelAndView;
 import com.blade.web.http.HttpMethod;
 import com.blade.web.http.Request;
 import com.blade.web.http.Response;
 import com.grice.config.Constant;
-import com.grice.kit.CacheKit;
 import com.grice.kit.MarkdownKit;
 import com.grice.kit.NodeComparator;
 import com.grice.model.Doc;
@@ -37,37 +35,10 @@ public class IndexController {
 	
 	@Route(value = "docs", method = HttpMethod.GET)
     public ModelAndView docs(ModelAndView mav, Request request, Response response){
-		
-		String target = $().environment().getString("grice.docs.target");
-		String lang = Constant.VIEW_CONTEXT.getValue("Lang").toString();
-		
-		String path = target + File.separatorChar + lang;
-		String key = EncrypKit.md5(path);
-		
-		List<Node> nodes = CacheKit.get(key + "_nodes");
-		String title = CacheKit.get(key + "_title");
-		String content = CacheKit.get(key + "_content");
-		
-		if(null == nodes){
-			File dir = new File(path);
-			File[] subDirs = dir.listFiles();
-			nodes = new ArrayList<Node>(subDirs.length);
-			for(File sub : subDirs){
-				Node node = new Node(sub.getPath());
-				node.setName(sub.getName());
-				nodes.add(node);
-			}
-			Collections.sort(nodes, comparator);
-			title = nodes.get(0).getTitle();
-			content = MarkdownKit.getContent(nodes.get(0).getPath() + "/README.md").getContent();
-			CacheKit.put(key + "_nodes", nodes);
-			CacheKit.put(key + "_title", title);
-			CacheKit.put(key + "_content", content);
-		}
-		
-		mav.add("title", title);
+		List<Node> nodes = this.getNodes();
+		mav.add("title", nodes.get(0).getTitle());
 		mav.add("nodes", nodes);
-		mav.add("content", content);
+		mav.add("content", MarkdownKit.getContent(nodes.get(0).getPath() + "/README.md").getContent());
 		mav.setView("docs.html");
         return mav;
     }
