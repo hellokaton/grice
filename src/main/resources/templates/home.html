@@ -1,17 +1,17 @@
-#include('./base.html')
+#include('./base.html', {title : lang('name') + " - " + lang('tag_line') })
 <div class="ui inverted vertical masthead center aligned segment">
-    #include('./nav.html')
+    #include('./navbar.html')
     <div class="ui text container banner">
         <img src="/static/img/banner.png"/>
-        <h2>aahhasas</h2>
+        <h2>${lang("home.tag_line")}</h2>
 
         <a class="ui huge inverted blue basic animated button" tabindex="0" href="">
-            <div class="visible content">&nbsp;&nbsp;&nbsp;&nbsp;get start&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            <div class="visible content">&nbsp;&nbsp;&nbsp;&nbsp;${lang("home.get_started")}&nbsp;&nbsp;&nbsp;&nbsp;</div>
             <div class="hidden content">
                 <i class="right arrow icon"></i>
             </div>
         </a>
-
+		
         <div id="github-stats">
             <iframe id="github-star" src="" allowtransparency="true" frameborder="0" scrolling="0" ></iframe>
             <iframe id="github-fork" src="" allowtransparency="true" frameborder="0" scrolling="0" ></iframe>
@@ -23,21 +23,21 @@
     <div class="ui aligned stackable three column grid container">
         <div class="column">
             <h3 class="ui header">
-                <i class="leaf icon"></i> asasasasas
+                <i class="leaf icon"></i> ${lang("home.lightweight")}
             </h3>
-            <p>{sdadad</p>
+            <p>${lang("home.lightweight_desc")}</p>
         </div>
         <div class="column">
             <h3 class="ui header">
-                <i class="rocket icon"></i> 90ms
+                <i class="rocket icon"></i> ${lang("home.real_time")}
             </h3>
-            <p>009090</p>
+            <p>${lang("home.real_time_desc")}</p>
         </div>
         <div class="column">
             <h3 class="ui header">
-                <i class="cubes icon"></i> search
+                <i class="cubes icon"></i> ${lang("home.searchable")}
             </h3>
-            <p>sousuo</p>
+            <p>${lang("home.searchable_desc")}</p>
         </div>
     </div>
 </div>
@@ -46,24 +46,24 @@
     <div class="ui aligned stackable two column grid container">
         <div class="column">
             <h3 class="ui header">
-                <i class="code icon"></i> minimal
+                <i class="code icon"></i> ${lang("home.minimal_example")}
             </h3>
             <div class="markdown">
 		  	<pre><code class="language-java hljs"><span class="hljs-comment">/**
- * Service
+ * ${lang("home.simple_service")}
  */</span>
 <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> </span>{
 
     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
         Blade blade = me();
-        <span class="hljs-comment">// creatger</span>
+        <span class="hljs-comment">// ${lang("home.create_get")}</span>
         blade.get(<span class="hljs-string">"/"</span>, <span class="hljs-keyword">new</span> RouteHandler() {
             <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">handle</span><span class="hljs-params">(Request request, Response response)</span> </span>{
                 response.html(<span class="hljs-string">"&lt;h1&gt;Hello Blade！&lt;/h1&gt;"</span>);
             }
         });
 
-        <span class="hljs-comment">// start_by_port</span>
+        <span class="hljs-comment">// ${lang("home.start_by_port")}</span>
         blade.start();
     }
 }
@@ -75,11 +75,11 @@
                 <i class="cubes icon"></i> griup
             </h3>
             <div class="markdown">
-			<pre><code class="language-java hljs"><span class="hljs-comment">// confif_ouhasas</span>
+			<pre><code class="language-java hljs"><span class="hljs-comment">// ${lang("home.config_route")}</span>
 blade.route(<span class="hljs-string">"/hello"</span>, NormalSample.class, <span class="hljs-string">"hello"</span>);
 blade.route(<span class="hljs-string">"/save_user"</span>, NormalSample.class, <span class="hljs-string">"post:saveUser"</span>);
 
-<span class="hljs-comment">// oualksa</span>
+<span class="hljs-comment">// ${lang("home.route_impl")}</span>
 <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NormalSample</span> </span>{
 
     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">hello</span><span class="hljs-params">(Request request, Response response)</span></span>{
@@ -90,7 +90,7 @@ blade.route(<span class="hljs-string">"/save_user"</span>, NormalSample.class, <
 
     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">saveUser</span><span class="hljs-params">(Request request, Response response)</span></span>{
         System.out.println(<span class="hljs-string">"进入saveUser~"</span>);
-        <span class="hljs-comment">// save_opt</span>
+        <span class="hljs-comment">// ${lang("home.save_opt")}</span>
     }
 }
 </code></pre>
@@ -99,10 +99,10 @@ blade.route(<span class="hljs-string">"/save_user"</span>, NormalSample.class, <
 
         <div class="column">
             <h3 class="ui header">
-                <i class="newspaper icon"></i> pachong
+                <i class="newspaper icon"></i> ${lang("home.crawler")}
             </h3>
             <div class="markdown">
-			<pre><code class="language-java hljs"><span class="hljs-comment">// asasaas</span>
+			<pre><code class="language-java hljs"><span class="hljs-comment">// ${lang("home.get_data_str")}</span>
 <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Soup</span> </span>{
 
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> start_page = <span class="hljs-number">1</span>,end_page = <span class="hljs-number">100</span>;
@@ -126,12 +126,12 @@ blade.route(<span class="hljs-string">"/save_user"</span>, NormalSample.class, <
     }
 }
 </code></pre>
-                <p><a href="https://github.com/blade-samples/spider/blob/master/src/main/java/me/biezhi/splider/Soup.java">cododod</a></p>
+                <p><a href="https://github.com/blade-samples/spider/blob/master/src/main/java/me/biezhi/splider/Soup.java">${lang("home.show_detail_code")}</a></p>
             </div>
         </div>
         <div class="column">
             <h3 class="ui header">
-                <i class="world icon"></i> fdsds
+                <i class="world icon"></i> ${lang("home.dsl_db")}
             </h3>
             <div class="markdown">
 			<pre><code class="language-java hljs"><span class="hljs-comment">// query</span>
@@ -162,8 +162,7 @@ Page&lt;Topic&gt; topicPage = AR.find(queryParam).page(Topic.class);
         </div>
     </div>
 </div>
-{% include Page.FooterTplPath %}
-
+#include('./footer.html')
 <script type="text/javascript">
     (function() {
         function async_load(){
@@ -178,7 +177,5 @@ Page&lt;Topic&gt; topicPage = AR.find(queryParam).page(Topic.class);
             window.addEventListener('load', async_load, false);
     })();
 </script>
-
-
 </body>
 </html>

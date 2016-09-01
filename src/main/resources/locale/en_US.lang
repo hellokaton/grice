@@ -1,0 +1,36 @@
+name = Blade
+tag_line = A simple and elegant Web Java framework
+copyright = © 2016 Blade. Website powered by <a href="https://github.com/biezhi/grice">Grice</a> .
+home = Home
+apidoc = API DOC
+use_guide = User Guide
+github = Github
+
+home.title = Blade
+home.tag_line = Micro kernel design of the MVC framework
+
+home.get_started = Get Start
+home.lightweight = LightWeight
+home.lightweight_desc = The new generation of JavaWeb framework, do not rely on more libraries, get rid of SSH's bloated, modular design, use more portable!
+home.real_time = Simple and efficient
+home.real_time_desc = The code is simple, the structure is clear, insufficient 100KB source code, write less code to develop quickly!
+home.searchable = Plug-in extension
+home.searchable_desc = Support users based on Blade to expand other functions, such as redis, dbutils and other integration, has been extended to many template engines and Sql2o components.
+
+home.404 = I didn't think I could have been so deep in hiding, but it wasn't a egg.
+
+home.minimal_example = Simple example
+home.group_routing = Minimalist route
+home.crawler = Crawler ability
+home.dsl_db = DSL database operation
+
+home.simple_service=The simplest service
+home.create_get=create get request
+home.start_by_port=Start at the 9000 port
+home.config_route=Configure route
+home.route_impl=Routing
+home.get_data_str=Grab chicken soup
+home.show_detail_code=View detailed code
+home.save_opt=Save
+home.signin_opt=Signin
+home.search_opt=Search record number

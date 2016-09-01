@@ -1,0 +1,27 @@
+<div class="ui container">
+	<div class="ui large secondary inverted menu">
+		#for(item : navbar.items) 
+		<a href="${item.link}" class="#if(item.link == link)active#end item" #if(item.blank)target="_blank" #end>#if(null!=item.icon)<i class="${item.icon} icon"></i>#end ${lang(item.locale)}</a>
+		#end
+		<div class="right item">
+			#if(extension.enableSearch)
+			<form action="/search">
+				<div class="item">
+					<div class="ui small input">
+						<input name="q" value="${Keyword}" placeholder="${lang('navbar.search')}...">
+					</div>
+				</div>
+			</form>
+			#end
+			<div class="ui language floating dropdown link item">
+				<i class="world icon"></i>
+				<div class="text">${langName()}</div>
+				<div class="menu">
+					#for (Map.Entry entry : all_langs)
+				    <a class="item #if(entry.key == lang)active selected#end" href="$!{link}?lang=${entry.key}">${entry.value}</a>
+					#end
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

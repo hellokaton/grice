@@ -1,0 +1,59 @@
+.ui.inverted.segment {
+	background-color: #8273CE;
+    /*background: #55acee;*/
+}
+.banner{
+    margin-top: 50px;
+}
+.banner h2{
+    padding: 20px;
+}
+#github-stats{
+    margin-top: 10px;
+}
+
+#github-stats iframe {
+	width: 100px;
+	height: 30px;
+	margin-top: 10px;
+}
+#screenshot-scroll {
+	color: gray;
+}
+.carousel {
+    position: relative;
+    background: #E0E0E0;
+    max-height: 400px;
+    width: 100%;
+    white-space: nowrap;
+    padding: 0;
+}
+.carousel .images {
+    overflow-x: auto;
+    width: 100%;
+    text-align: center;
+}
+.carousel img {
+    max-height: 400px;
+    margin-right: 5px;
+    z-index: 1;
+}
+#clientele img {
+    max-height: 65px;
+    background: #FFF;
+    padding: 10px;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+}
+#clientele a:hover {
+  	text-decoration: none; 
+}
+#clientele a:hover img {
+    border-color: #428BCA; 
+}
+.footer a {
+	color: #4A4747;
+}
+.footer a:hover {
+	color: #1F1E1E;
+}

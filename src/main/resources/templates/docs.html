@@ -1,0 +1,52 @@
+#include('./base.html', {title : title + " - " + lang('name')})
+<div class="ui inverted vertical center aligned segment">
+	#include('./navbar.html')
+</div>
+<div class="ui grid documentation container">
+	<div class="four wide column">
+		<div class="ui vertical menu">
+			#if(null != toc)
+				#for(node : toc.nodes)
+					<div class="item">
+					#if(node.plain)
+					<div class="header">${node.title}</div>
+					#else
+					<a class="header" href="/docs/${node.name}">${node.title}</a>
+					#end
+					#if(null != node.docs)
+					<div class="menu">
+				    	#for(doc : node.docs)
+				    	#if(null != doc.title)
+				    	<a class="item" href="/docs/${node.name}/${doc.name}">${doc.title}</a>
+				    	#end
+				    	#end
+				    </div>
+					#end	
+				  </div>
+				#end
+			#else
+			<div class="item">
+				<div class="header">${lang("docs.pages")}</div>
+				<div class="menu">
+					#for(page : pages)
+					<a class="item" href="/${page.name}">${page.title}</a>
+					#end
+				</div>
+			</div>
+			#end
+		</div>
+	</div>
+	<div class="twelve wide column">
+		<div id="content" class="ui markdown segment">$!{content}</div>
+		#if(extension.enableDuoShuo)
+		#include('./duoshuo.html')
+		#end
+	</div>
+</div>
+#include('./footer.html')
+<script type="text/javascript" src="http://cdn.bootcss.com/marked/0.3.6/marked.min.js"></script>
+<script type="text/javascript">
+document.getElementById('content').innerHTML = marked(document.getElementById('content').innerHTML);
+</script>
+</body>
+</html>

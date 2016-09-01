@@ -1,27 +1,25 @@
 package com.grice;
 
-import com.blade.Blade;
-import com.blade.embedd.EmbedJettyServer;
-import com.blade.route.RouteHandler;
-import com.blade.view.ModelAndView;
-import com.blade.view.template.JetbrickTemplateEngine;
-import com.blade.web.http.Request;
-import com.blade.web.http.Response;
+import static com.blade.Blade.$;
 
-/**
- * Hello world!
- */
+import com.blade.view.template.JetbrickTemplateEngine;
+import com.grice.config.Constant;
+import com.grice.ext.Funcs;
+
+import jetbrick.template.resolver.GlobalResolver;
+
 public class Application {
-    public static void main(String[] args) throws Exception {
-        Blade.$().viewEngin(new JetbrickTemplateEngine());
-        Blade.$().get("/", new RouteHandler() {
-            @Override
-            public void handle(Request request, Response response) {
-                ModelAndView modelAndView = new ModelAndView();
-                modelAndView.setView("home.html");
-                response.render(modelAndView);
-            }
-        });
-        Blade.$().start(EmbedJettyServer.class);
-    }
+	
+	public static void main(String[] args) throws Exception {
+		JetbrickTemplateEngine templateEngine = new JetbrickTemplateEngine();
+		
+		// 模板引擎
+		GlobalResolver resolver = templateEngine.getJetEngine().getGlobalResolver();
+		resolver.registerFunctions(Funcs.class);
+		Constant.VIEW_CONTEXT = templateEngine.getJetEngine().getGlobalContext();
+		
+		$().viewEngin(templateEngine);
+		$().start(Application.class);
+	}
+
 }
