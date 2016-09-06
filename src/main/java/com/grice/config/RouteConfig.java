@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.blade.annotation.Order;
 import com.blade.config.ApplicationConfig;
 import com.blade.config.BaseConfig;
 import com.blade.ioc.annotation.Component;
@@ -18,18 +19,21 @@ import com.grice.model.Item;
 import com.grice.model.Navbar;
 
 @Component
+@Order(sort = 2)
 public class RouteConfig implements BaseConfig{
 	
 	@Override
 	public void config(ApplicationConfig applicationConfig) {
 		
-		String version = $().environment().getString("grice.version");
-		String site_name = $().environment().getString("grice.site.name");
-		String site_desc = $().environment().getString("grice.site.desc");
-		String site_url = $().environment().getString("grice.site.url");
-		String i18n_langs = $().environment().getString("grice.i18n.langs");
-		String lang_names = $().environment().getString("grice.i18n.names");
-		String navbar_str = $().environment().getString("grice.navbar");
+		System.out.println("2 ...");
+		
+		String version = $().config().get("grice.version");
+		String site_name = $().config().get("grice.site.name");
+		String site_desc = $().config().get("grice.site.desc");
+		String site_url = $().config().get("grice.site.url");
+		String i18n_langs = $().config().get("grice.i18n.langs");
+		String lang_names = $().config().get("grice.i18n.names");
+		String navbar_str = $().config().get("grice.navbar");
 		
 		Map<String, Object> siteMap = new HashMap<String, Object>();
 		siteMap.put("name", site_name);
@@ -63,10 +67,10 @@ public class RouteConfig implements BaseConfig{
 		
 		Navbar navbar = new Navbar();
 		for(String nav : navs){
-			String icon = $().environment().getString(StringKit.trim("grice.navbar." + nav.trim() + ".icon")); 
-			String locale = $().environment().getString("grice.navbar." + nav.trim() + ".locale"); 
-			String link = $().environment().getString("grice.navbar." + nav.trim() + ".link"); 
-			Boolean blank = $().environment().getBoolean("grice.navbar." + nav.trim() + ".blank"); 
+			String icon = $().config().get(StringKit.trim("grice.navbar." + nav.trim() + ".icon")); 
+			String locale = $().config().get("grice.navbar." + nav.trim() + ".locale"); 
+			String link = $().config().get("grice.navbar." + nav.trim() + ".link"); 
+			Boolean blank = $().config().getBoolean("grice.navbar." + nav.trim() + ".blank"); 
 			blank = null == blank ? false : blank;
 			Item item = new Item(link, icon, locale, blank);
 			navbar.addItem(item);
@@ -74,9 +78,9 @@ public class RouteConfig implements BaseConfig{
 		Constant.VIEW_CONTEXT.set(Navbar.class, "navbar", navbar);
 		
 		Extension extension = new Extension();
-		Boolean enableDuoShuo = $().environment().getBoolean("grice.extension.enableDuoShuo");
+		Boolean enableDuoShuo = $().config().getBoolean("grice.extension.enableDuoShuo");
 		extension.setEnableDuoShuo(enableDuoShuo);
-		String duoShuoShortName = $().environment().getString("grice.extension.duoShuoShortName");
+		String duoShuoShortName = $().config().get("grice.extension.duoShuoShortName");
 		extension.setDuoShuoShortName(duoShuoShortName);
 		Constant.VIEW_CONTEXT.set(Extension.class, "extension", extension);
 		

@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.blade.annotation.Controller;
-import com.blade.annotation.JSON;
-import com.blade.annotation.PathVariable;
-import com.blade.annotation.Route;
-import com.blade.view.ModelAndView;
-import com.blade.web.http.HttpMethod;
-import com.blade.web.http.Request;
-import com.blade.web.http.Response;
+import com.blade.mvc.annotation.Controller;
+import com.blade.mvc.annotation.JSON;
+import com.blade.mvc.annotation.PathVariable;
+import com.blade.mvc.annotation.Route;
+import com.blade.mvc.http.HttpMethod;
+import com.blade.mvc.http.Request;
+import com.blade.mvc.http.Response;
+import com.blade.mvc.view.ModelAndView;
 import com.grice.config.Constant;
 import com.grice.kit.MarkdownKit;
 import com.grice.kit.NodeComparator;
@@ -47,7 +47,7 @@ public class IndexController {
 	@JSON
     public RestResponse<Doc> rootDetail(Request request, @PathVariable("node") String node){
 		
-		String target = $().environment().getString("grice.docs.target");
+		String target = $().config().get("grice.docs.target");
 		String lang = Constant.VIEW_CONTEXT.getValue("Lang").toString();
 		String path = target + File.separatorChar + lang + File.separatorChar + node + File.separatorChar + "README.md";
 		
@@ -60,7 +60,7 @@ public class IndexController {
 	@Route(value = "docs/:node", method = HttpMethod.GET)
     public ModelAndView showRootDetail(Request request, @PathVariable("node") String node){
 		
-		String target = $().environment().getString("grice.docs.target");
+		String target = $().config().get("grice.docs.target");
 		String lang = Constant.VIEW_CONTEXT.getValue("Lang").toString();
 		String path = target + File.separatorChar + lang + File.separatorChar + node + File.separatorChar + "README.md";
 		
@@ -80,7 +80,7 @@ public class IndexController {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		String target = $().environment().getString("grice.docs.target");
+		String target = $().config().get("grice.docs.target");
 		String lang = Constant.VIEW_CONTEXT.getValue("Lang").toString();
 		
 		List<Node> nodes = this.getNodes();
@@ -100,7 +100,7 @@ public class IndexController {
 	@JSON
     public RestResponse<Doc> docDetail(Request request, @PathVariable("node") String nodeName,@PathVariable("doc_name") String docName){
 		
-		String target = $().environment().getString("grice.docs.target");
+		String target = $().config().get("grice.docs.target");
 		String lang = Constant.VIEW_CONTEXT.getValue("Lang").toString();
 		String path = target + File.separatorChar + lang + File.separatorChar + nodeName + File.separatorChar + docName + ".md";
 		
@@ -112,7 +112,7 @@ public class IndexController {
 	
 	private List<Node> getNodes(){
 		
-		String target = $().environment().getString("grice.docs.target");
+		String target = $().config().get("grice.docs.target");
 		String lang = Constant.VIEW_CONTEXT.getValue("Lang").toString();
 		String path = target + File.separatorChar + lang;
 		
