@@ -1,4 +1,5 @@
 #include('./header.html', {title : lang('name') + " - " + lang('tag_line') })
+
 <div class="ui inverted vertical masthead center aligned segment">
     #include('./navbar.html')
     <div class="ui text container banner">
@@ -49,22 +50,12 @@
                 <i class="code icon"></i> ${lang("home.minimal_example")}
             </h3>
             <div class="markdown">
-		  	<pre><code class="language-java hljs"><span class="hljs-comment">/**
- * ${lang("home.simple_service")}
- */</span>
-<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> </span>{
+		  	<pre><code class="lang-java hljs"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Application</span> </span>{
 
     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
-        Blade blade = me();
-        <span class="hljs-comment">// ${lang("home.create_get")}</span>
-        blade.get(<span class="hljs-string">"/"</span>, <span class="hljs-keyword">new</span> RouteHandler() {
-            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">handle</span><span class="hljs-params">(Request request, Response response)</span> </span>{
-                response.html(<span class="hljs-string">"&lt;h1&gt;Hello Blade！&lt;/h1&gt;"</span>);
-            }
-        });
-
-        <span class="hljs-comment">// ${lang("home.start_by_port")}</span>
-        blade.start();
+        $().get(<span class="hljs-string">"/"</span>, (request, response) -&gt; {
+            response.html(<span class="hljs-string">"&lt;h1&gt;Hello blade!&lt;/h1&gt;"</span>);
+        }).start();
     }
 }
 </code></pre>
@@ -72,26 +63,16 @@
         </div>
         <div class="column">
             <h3 class="ui header">
-                <i class="cubes icon"></i> griup
+                <i class="cubes icon"></i> ${lang("home.return_json")}
             </h3>
             <div class="markdown">
-			<pre><code class="language-java hljs"><span class="hljs-comment">// ${lang("home.config_route")}</span>
-blade.route(<span class="hljs-string">"/hello"</span>, NormalSample.class, <span class="hljs-string">"hello"</span>);
-blade.route(<span class="hljs-string">"/save_user"</span>, NormalSample.class, <span class="hljs-string">"post:saveUser"</span>);
-
-<span class="hljs-comment">// ${lang("home.route_impl")}</span>
-<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NormalSample</span> </span>{
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">hello</span><span class="hljs-params">(Request request, Response response)</span></span>{
-        System.out.println(<span class="hljs-string">"进入hello~"</span>);
-        request.attribute(<span class="hljs-string">"name"</span>, <span class="hljs-string">"rose baby"</span>);
-        response.text(<span class="hljs-string">"hi"</span>);
-    }
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">saveUser</span><span class="hljs-params">(Request request, Response response)</span></span>{
-        System.out.println(<span class="hljs-string">"进入saveUser~"</span>);
-        <span class="hljs-comment">// ${lang("home.save_opt")}</span>
-    }
+			<pre><code class="lang-java hljs"><span class="hljs-annotation">@Route</span>(value = <span class="hljs-string">"users"</span>, method = HttpMethod.GET)
+<span class="hljs-annotation">@JSON</span>
+<span class="hljs-keyword">public</span> List&lt;User&gt; users(){
+    List&lt;User&gt; users = <span class="hljs-keyword">new</span> ArrayList<>();
+    users.add(<span class="hljs-keyword">new</span> User(<span class="hljs-string">"jack"</span>, <span class="hljs-number">20</span>));
+    users.add(<span class="hljs-keyword">new</span> User(<span class="hljs-string">"rose"</span>, <span class="hljs-number">18</span>));
+    <span class="hljs-keyword">return</span> users;
 }
 </code></pre>
             </div>
@@ -99,64 +80,31 @@ blade.route(<span class="hljs-string">"/save_user"</span>, NormalSample.class, <
 
         <div class="column">
             <h3 class="ui header">
-                <i class="newspaper icon"></i> ${lang("home.crawler")}
+                <i class="newspaper icon"></i> ${lang("home.interceptor")}
             </h3>
             <div class="markdown">
-			<pre><code class="language-java hljs"><span class="hljs-comment">// ${lang("home.get_data_str")}</span>
-<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Soup</span> </span>{
+			<pre><code class="lang-java hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
 
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> start_page = <span class="hljs-number">1</span>,end_page = <span class="hljs-number">100</span>;
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String REG =
-        <span class="hljs-string">"&lt;div.*?body\"&gt;([\\s\\S]*?)&lt;p&gt;([\\s\\S]*?)&lt;/p&gt;([\\s\\S]*?)&lt;/div&gt;"</span>;
+    $().before(<span class="hljs-string">"/.*"</span>, (request, response) -&gt; {
+        System.out.println(<span class="hljs-string">"before..."</span>);
+    }).start();
 
-    <span class="hljs-function"><span class="hljs-keyword">private</span> String <span class="hljs-title">getBody</span><span class="hljs-params">()</span></span>{
-        <span class="hljs-keyword">return</span> HttpRequest
-        .get(String.format(<span class="hljs-string">"http://soup.setin.cn/p/%d.html"</span>, start_page))
-        .userAgent(<span class="hljs-string">"Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)"</span>)
-        .body();
-    }
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">execute</span><span class="hljs-params">()</span></span>{
-        <span class="hljs-comment">//...</span>
-    }
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
-        Soup joke = <span class="hljs-keyword">new</span> Soup();
-        joke.execute();
-    }
 }
 </code></pre>
-                <p><a href="https://github.com/blade-samples/spider/blob/master/src/main/java/me/biezhi/splider/Soup.java">${lang("home.show_detail_code")}</a></p>
             </div>
         </div>
         <div class="column">
             <h3 class="ui header">
-                <i class="world icon"></i> ${lang("home.dsl_db")}
+                <i class="world icon"></i> ${lang("home.restful")}
             </h3>
             <div class="markdown">
-			<pre><code class="language-java hljs"><span class="hljs-comment">// query</span>
-List&lt;Post&gt; posts =
-    AR.find(<span class="hljs-string">"where title like ? order by id desc limit ?,?"</span>, title, page, count)
-    .list(Post.class);
+			<pre><code class="lang-java hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+    $().get(<span class="hljs-string">"user/:uid"</span>, (request, response) -&amp;gt; {
+        Integer uid = request.paramAsInt(<span class="hljs-string">"uid"</span>);
+        response.text(<span class="hljs-string">"uid : "</span> + uid);
+    }).start();
+}
 
-<span class="hljs-comment">// save</span>
-String sql = <span class="hljs-string">"insert into t_post(title, content, create_time) values(?,?,?)"</span>;
-AR.update(sql, title, content, <span class="hljs-keyword">new</span> Date()).executeAndUpdate();
-
-<span class="hljs-comment">// update</span>
-AR.update(<span class="hljs-string">"update t_post set title = ? where id = ?"</span>,title, id).executeAndUpdate();
-
-<span class="hljs-comment">// delete</span>
-AR.update(<span class="hljs-string">"delete from t_post where id = ?"</span>,id).executeAndUpdate()
-
-<span class="hljs-comment">// find by id</span>
-Topic topic = AR.findById(Topic.class, tid);
-
-<span class="hljs-comment">// pagination</span>
-QueryParam hp = QueryParam.me();
-hp.eq(<span class="hljs-string">"status"</span>, <span class="hljs-number">1</span>).orderby(<span class="hljs-string">"tid, comments, views desc"</span>).add(<span class="hljs-string">"limit 10"</span>);
-
-Page&lt;Topic&gt; topicPage = AR.find(queryParam).page(Topic.class);
 </code></pre>
             </div>
         </div>

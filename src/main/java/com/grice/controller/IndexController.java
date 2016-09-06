@@ -122,9 +122,11 @@ public class IndexController {
 		File[] subDirs = dir.listFiles();
 		nodes = new ArrayList<Node>(subDirs.length);
 		for(File sub : subDirs){
-			Node node = new Node(sub.getPath());
-			node.setName(sub.getName());
-			nodes.add(node);
+			if('.' != sub.getName().charAt(0)){
+				Node node = new Node(sub.getPath());
+				node.setName(sub.getName());
+				nodes.add(node);
+			}
 		}
 		Collections.sort(nodes, comparator);
 		return nodes;

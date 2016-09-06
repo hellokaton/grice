@@ -58,9 +58,10 @@ public class RouteConfig implements BaseConfig{
 			}
 		}
 		
-		Locale defaultLocale = Locale.getDefault();
-		String localLang = defaultLocale.toString();
-		Constant.VIEW_CONTEXT.set(String.class, "Lang", localLang);
+//		Locale defaultLocale = Locale.getDefault();
+//		String localLang = defaultLocale.toString();
+//		Constant.VIEW_CONTEXT.set(String.class, "Lang", localLang);
+		Constant.VIEW_CONTEXT.set(String.class, "Lang", "zh_CN");
 		Constant.VIEW_CONTEXT.set(Map.class, "all_langs", Constant.ALL_LANGS);
 		
 		String[] navs = StringKit.split(navbar_str, ",");

@@ -12,24 +12,17 @@ home.get_started = 开始使用
 home.lightweight = 轻量级
 home.lightweight_desc = 新一代JavaWeb框架，不依赖更多的库，摆脱SSH的臃肿，模块化设计，使用起来更轻便！
 home.real_time = 简洁高效
-home.real_time_desc = 代码简洁、结构清晰，不足100KB源代码，写更少的代码快速开发！
-home.searchable = 插件扩展
-home.searchable_desc = 支持用户基于Blade扩展其他功能，如redis,dbutils等集成，现已扩展了众多模版引擎和Sql2o组件~
+home.real_time_desc = 代码简洁、结构清晰，源代码只有不到300KB，写更少的代码快速开发！
+home.searchable = 方便部署
+home.searchable_desc = 内置Jetty、Tomcat服务器, 支持非web方式打成jar包直接运行，本站就是这种方式发布!
 
 home.404 = 没想到我藏得这么深都能被你发现，然而并没有什么卵用。
 
 home.minimal_example = 最简示例
-home.group_routing = 极简路由
-home.crawler = 爬虫能力
-home.dsl_db = DSL数据库操作
+home.return_json=JSON返回
+home.interceptor=Web拦截
+home.restful=Restful
 
-home.simple_service=最简单的服务
-home.create_get=创建一个GET请求
-home.start_by_port=在9000端口启动
-home.config_route=配置路由
-home.route_impl=路由实现
-home.get_data_str=抓取心灵鸡汤
-home.show_detail_code=查看详细代码
-home.save_opt=保存操作
-home.signin_opt=登录操作
-home.search_opt=查询条数
+footer.project=Blade
+footer.documentation=文档
+footer.submit_issue=提交工单
