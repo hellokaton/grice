@@ -22,7 +22,7 @@ import com.grice.model.Doc;
 import com.grice.model.Node;
 import com.grice.model.RestResponse;
 
-@Controller("/")
+@Controller
 public class IndexController {
 	
 	private NodeComparator comparator = new NodeComparator();

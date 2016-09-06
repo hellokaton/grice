@@ -11,11 +11,7 @@ public class BaseInterceptor implements Interceptor {
 	
 	@Override
 	public boolean before(Request request, Response response) {
-		
-		System.out.println("before ... ");
-		
 		String lang = request.query("lang");
-		System.out.println("lang = " + lang);
 		// 切换语言
         if(null != lang && Constant.ALL_LANGS.containsKey(lang)){
         	Constant.VIEW_CONTEXT.set("Lang", lang);

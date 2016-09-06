@@ -20,6 +20,19 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+	<repositories>
+        <repository>
+            <id>oss-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    
 	<dependencies>
 		<dependency>
 			<groupId>com.bladejava</groupId>
@@ -39,10 +52,6 @@
 		<resources>
 			<resource>
 				<directory>src/main/java</directory>
-				<filtering>false</filtering>
-			</resource>
-			<resource>
-				<directory>src/main/resources</directory>
 				<filtering>false</filtering>
 			</resource>
 		</resources>
@@ -75,7 +84,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>blade.sample.Application</mainClass>
+							<mainClass>com.grice.Application</mainClass>
 							<classpathPrefix>lib/</classpathPrefix>
 							<addClasspath>true</addClasspath>
 						</manifest>
