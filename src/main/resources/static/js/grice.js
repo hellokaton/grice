@@ -20,8 +20,8 @@ $(document).ready(function () {
 		e.preventDefault();
 		var this_ = $(this);
 		$.ajax({
-	        type:"post",
-	        url: this_.attr('href'),
+	        type:"get",
+	        url: '/api' + this_.attr('href') + '.json',
 	        cache:false,
 	        dataType:"json",
 	        success: function(result){

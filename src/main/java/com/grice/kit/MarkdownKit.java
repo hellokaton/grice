@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import com.blade.kit.FileKit;
 import com.blade.kit.IOKit;
 import com.grice.model.Doc;
 
@@ -12,6 +13,9 @@ public final class MarkdownKit {
 	public static Doc getDoc(String path){
 		BufferedReader br = null;
 		try {
+			if(!FileKit.exist(path)){
+				return null;
+			}
 			Doc doc = new Doc();
 			br = new BufferedReader(new FileReader(path));
 			String line;

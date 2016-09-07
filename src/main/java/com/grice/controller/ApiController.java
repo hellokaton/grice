@@ -1,0 +1,67 @@
+package com.grice.controller;
+
+import static com.blade.Blade.$;
+
+import java.io.File;
+
+import com.blade.mvc.annotation.JSON;
+import com.blade.mvc.annotation.PathVariable;
+import com.blade.mvc.annotation.RestController;
+import com.blade.mvc.annotation.Route;
+import com.blade.mvc.http.HttpMethod;
+import com.blade.mvc.http.Request;
+import com.grice.config.Constant;
+import com.grice.kit.MarkdownKit;
+import com.grice.model.Doc;
+import com.grice.model.RestResponse;
+
+/**
+ * 文档API
+ */
+@RestController(value = "api", suffix = ".json")
+public class ApiController {
+	
+	/**
+	 * 读取文档节点内容
+	 * 
+	 * @param request
+	 * @param node
+	 * @return
+	 */
+	@Route(value = "docs/:node", method = HttpMethod.GET)
+	@JSON
+    public RestResponse<Doc> rootDetail(Request request, @PathVariable("node") String node){
+		
+		String target = $().config().get("grice.docs.target");
+		String lang = Constant.VIEW_CONTEXT.getValue("Lang").toString();
+		String path = target + File.separatorChar + lang + File.separatorChar + node.replace(".json", "") + File.separatorChar + "README.md";
+		
+		RestResponse<Doc> restResponse = new RestResponse<Doc>();
+		Doc doc = MarkdownKit.getDoc(path);
+		restResponse.setPayload(doc);
+        return restResponse;
+    }
+	
+	/**
+	 * 读取文档详情
+	 * 
+	 * @param request
+	 * @param nodeName
+	 * @param docName
+	 * @return
+	 */
+	@Route(value = "docs/:node/:doc_name", method = HttpMethod.GET)
+	@JSON
+    public RestResponse<Doc> docDetail(Request request, @PathVariable("node") String nodeName,@PathVariable("doc_name") String docName){
+		
+		String target = $().config().get("grice.docs.target");
+		String lang = Constant.VIEW_CONTEXT.getValue("Lang").toString();
+		String path = target + File.separatorChar + lang + File.separatorChar + nodeName + File.separatorChar + docName.replace(".json", "") + ".md";
+		
+		RestResponse<Doc> restResponse = new RestResponse<Doc>();
+		Doc doc = MarkdownKit.getDoc(path);
+		restResponse.setPayload(doc);
+        return restResponse;
+    }
+	
+}
