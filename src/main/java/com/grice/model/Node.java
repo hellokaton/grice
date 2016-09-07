@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.grice.Grice;
+import com.grice.Application;
 import com.grice.kit.MarkdownKit;
 
 public class Node implements Comparable<Node> {
@@ -46,7 +46,7 @@ public class Node implements Comparable<Node> {
 				docs.add(node);
 			}
 		}
-		Collections.sort(docs, Grice.comparator);
+		Collections.sort(docs, Application.comparator);
 	}
 
 	public String getPath() {

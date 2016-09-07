@@ -16,7 +16,7 @@ import com.blade.mvc.http.HttpMethod;
 import com.blade.mvc.http.Request;
 import com.blade.mvc.http.Response;
 import com.blade.mvc.view.ModelAndView;
-import com.grice.Grice;
+import com.grice.Application;
 import com.grice.config.Constant;
 import com.grice.kit.MarkdownKit;
 import com.grice.model.Doc;
@@ -144,7 +144,7 @@ public class IndexController {
 				nodes.add(node);
 			}
 		}
-		Collections.sort(nodes, Grice.comparator);
+		Collections.sort(nodes, Application.comparator);
 		return nodes;
 	}
 	
