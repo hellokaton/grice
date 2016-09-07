@@ -2,10 +2,6 @@ $(document).ready(function () {
 	
 	$('.ui.accordion').accordion();
 	
-	$('.dropdown.link').dropdown({
-		action: 'hide'
-	});
-	
     var md = new Remarkable({
         html: false,    // Enable HTML tags in source
         xhtmlOut: true,    // Use '/' to close single tags (<br />)
@@ -26,10 +22,12 @@ $(document).ready(function () {
 	        dataType:"json",
 	        success: function(result){
 	        	if(result && result.success){
-//	        		this_.addClass('current').siblings().removeClass('current');
 	        		this_.addClass('active').siblings().removeClass('active');
 	        		var data = result.payload;
 	        		$('#article').html( md.render(data.content) );
+	        		
+	        		Prism.highlightAll();
+//	        		Prism.highlightElement(document.getElementById('article'));
 	        		
 	        		var pos = document.title.indexOf(' - ');
 	        		var title = data.title + ' - ' + document.title.substr(pos+3);
