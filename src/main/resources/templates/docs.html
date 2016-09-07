@@ -17,7 +17,7 @@
 					<div class="transition hidden menu">
 				    	#for(doc : node.docs)
 				    	#if(null != doc.title)
-				    	<a class="item" href="/docs/${node.name}/${doc.name}">${doc.title}</a>
+				    	<a class="item #if(doc.name==current)active#end" href="/docs/${node.name}/${doc.name}">${doc.title}</a>
 				    	#end
 				    	#end
 				    </div>

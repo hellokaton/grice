@@ -1,23 +1,29 @@
 package com.grice.kit;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
 import com.blade.kit.FileKit;
 import com.blade.kit.IOKit;
-import com.grice.model.Doc;
+import com.grice.model.Node;
 
 public final class MarkdownKit {
 	
-	public static Doc getDoc(String path){
+	public static Node getNodeDoc(String path){
 		BufferedReader br = null;
 		try {
 			if(!FileKit.exist(path)){
 				return null;
 			}
-			Doc doc = new Doc();
-			br = new BufferedReader(new FileReader(path));
+			
+			File file = new File(path);
+			
+			Node doc = new Node();
+			doc.setPath(file.getPath());
+			doc.setName(file.getName().replace(".md", ""));
+			br = new BufferedReader(new FileReader(file));
 			String line;
 			boolean isContent = false;
 			int count = 0;

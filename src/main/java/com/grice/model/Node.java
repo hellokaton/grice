@@ -13,36 +13,33 @@ public class Node implements Comparable<Node> {
 	private int sort;
 	private String title;
 	private String name;
+	private String parent_name;
 	private String path;
+	private String content;
 	private boolean plain;
 	private boolean isRoot;
 	private List<Node> docs;
-
+	
 	public Node() {
 	}
 
-	public Node(String path) {
+	public Node(String name, String path) {
+		this.name = name;
 		this.path = path;
 		String readme = path + File.separatorChar + "README.md";
-		Doc doc = MarkdownKit.getDoc(readme);
+		Node doc = MarkdownKit.getNodeDoc(readme);
 		this.title = doc.getTitle();
 		this.isRoot = doc.isRoot();
 		this.sort = doc.getSort();
 		this.plain = doc.isPlain();
-
+		
 		File dir = new File(path);
 		File[] files = dir.listFiles();
 		this.docs = new ArrayList<Node>(files.length);
 		for (File file : files) {
 			if (!"README.md".equals(file.getName())) {
-				Node node = new Node();
-				Doc nodeDoc = MarkdownKit.getDoc(file.getPath());
-				node.setPath(file.getPath());
-				node.setTitle(nodeDoc.getTitle());
-				node.setName(file.getName().replaceFirst(".md", ""));
-				node.setSort(nodeDoc.getSort());
-				node.setRoot(nodeDoc.isRoot());
-				node.setPlain(nodeDoc.isPlain());
+				Node node = MarkdownKit.getNodeDoc(file.getPath());
+				node.parent_name = this.name;
 				docs.add(node);
 			}
 		}
@@ -103,6 +100,22 @@ public class Node implements Comparable<Node> {
 
 	public void setPlain(boolean plain) {
 		this.plain = plain;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public String getParent_name() {
+		return parent_name;
+	}
+
+	public void setParent_name(String parent_name) {
+		this.parent_name = parent_name;
 	}
 
 	@Override

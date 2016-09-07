@@ -12,7 +12,7 @@ import com.blade.mvc.http.HttpMethod;
 import com.blade.mvc.http.Request;
 import com.grice.config.Constant;
 import com.grice.kit.MarkdownKit;
-import com.grice.model.Doc;
+import com.grice.model.Node;
 import com.grice.model.RestResponse;
 
 /**
@@ -30,14 +30,14 @@ public class ApiController {
 	 */
 	@Route(value = "docs/:node", method = HttpMethod.GET)
 	@JSON
-    public RestResponse<Doc> rootDetail(Request request, @PathVariable("node") String node){
+    public RestResponse<Node> rootDetail(Request request, @PathVariable("node") String node){
 		
 		String target = $().config().get("grice.docs.target");
 		String lang = Constant.VIEW_CONTEXT.getValue("Lang").toString();
 		String path = target + File.separatorChar + lang + File.separatorChar + node.replace(".json", "") + File.separatorChar + "README.md";
 		
-		RestResponse<Doc> restResponse = new RestResponse<Doc>();
-		Doc doc = MarkdownKit.getDoc(path);
+		RestResponse<Node> restResponse = new RestResponse<Node>();
+		Node doc = MarkdownKit.getNodeDoc(path);
 		restResponse.setPayload(doc);
         return restResponse;
     }
@@ -52,14 +52,14 @@ public class ApiController {
 	 */
 	@Route(value = "docs/:node/:doc_name", method = HttpMethod.GET)
 	@JSON
-    public RestResponse<Doc> docDetail(Request request, @PathVariable("node") String nodeName,@PathVariable("doc_name") String docName){
+    public RestResponse<Node> docDetail(Request request, @PathVariable("node") String nodeName,@PathVariable("doc_name") String docName){
 		
 		String target = $().config().get("grice.docs.target");
 		String lang = Constant.VIEW_CONTEXT.getValue("Lang").toString();
 		String path = target + File.separatorChar + lang + File.separatorChar + nodeName + File.separatorChar + docName.replace(".json", "") + ".md";
 		
-		RestResponse<Doc> restResponse = new RestResponse<Doc>();
-		Doc doc = MarkdownKit.getDoc(path);
+		RestResponse<Node> restResponse = new RestResponse<Node>();
+		Node doc = MarkdownKit.getNodeDoc(path);
 		restResponse.setPayload(doc);
         return restResponse;
     }

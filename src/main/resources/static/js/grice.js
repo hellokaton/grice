@@ -2,6 +2,13 @@ $(document).ready(function () {
 	
 	$('.ui.accordion').accordion();
 	
+	if($('.accordion a.active').length > 0){
+		$('.accordion a.active').parents('div.content').prev().click();
+	} else{
+		$('.accordion .content:eq(0) a:eq(0)').addClass('active');
+		$('.accordion .title:eq(0)').click();
+	}
+	
     var md = new Remarkable({
         html: false,    // Enable HTML tags in source
         xhtmlOut: true,    // Use '/' to close single tags (<br />)
@@ -27,7 +34,6 @@ $(document).ready(function () {
 	        		$('#article').html( md.render(data.content) );
 	        		
 	        		Prism.highlightAll();
-//	        		Prism.highlightElement(document.getElementById('article'));
 	        		
 	        		var pos = document.title.indexOf(' - ');
 	        		var title = data.title + ' - ' + document.title.substr(pos+3);

@@ -19,7 +19,6 @@ import com.blade.mvc.view.ModelAndView;
 import com.grice.Application;
 import com.grice.config.Constant;
 import com.grice.kit.MarkdownKit;
-import com.grice.model.Doc;
 import com.grice.model.Node;
 
 /**
@@ -52,13 +51,13 @@ public class IndexController {
 		
 		Node first = nodes.get(0);
 		
-		String content = MarkdownKit.getDoc(first.getPath() + "/README.md").getContent();
+		String content = MarkdownKit.getNodeDoc(first.getPath() + "/README.md").getContent();
 		String title = first.getTitle();
 		// 没有内容
 		if(StringKit.isBlank(content.trim())){
 			if(CollectionKit.isNotEmpty(first.getDocs())){
 				Node doc = first.getDocs().get(0);
-				content = MarkdownKit.getDoc(doc.getPath()).getContent();
+				content = MarkdownKit.getNodeDoc(doc.getPath()).getContent();
 				title = doc.getTitle();
 			}
 		}
@@ -85,10 +84,11 @@ public class IndexController {
 		List<Node> nodes = this.getNodes();
 		mav.add("nodes", nodes);
 		
-		Doc doc = MarkdownKit.getDoc(path);
+		Node doc = MarkdownKit.getNodeDoc(path);
 		if(null != doc){
 			mav.add("title", doc.getTitle());
 			mav.add("content", doc.getContent());
+			mav.add("current", doc.getName());
 			mav.setView("docs.html");
 		} else {
 			mav.setView("404.html");
@@ -116,10 +116,11 @@ public class IndexController {
 		
 		String raw = target + File.separatorChar + lang + File.separatorChar + nodeName + File.separatorChar + docName + ".md";
 		
-		Doc doc = MarkdownKit.getDoc(raw);
+		Node doc = MarkdownKit.getNodeDoc(raw);
 		if(null != doc){
 			mav.add("title", doc.getTitle());
 			mav.add("content", doc.getContent());
+			mav.add("current", doc.getName());
 			mav.setView("docs.html");
 		} else {
 			mav.setView("404.html");
@@ -139,8 +140,7 @@ public class IndexController {
 		nodes = new ArrayList<Node>(subDirs.length);
 		for(File sub : subDirs){
 			if('.' != sub.getName().charAt(0)){
-				Node node = new Node(sub.getPath());
-				node.setName(sub.getName());
+				Node node = new Node(sub.getName().replace(".md", ""), sub.getPath());
 				nodes.add(node);
 			}
 		}
