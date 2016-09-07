@@ -5,6 +5,7 @@ public class Doc {
 	private String title;
 	private String content;
 	private boolean isRoot;
+	private boolean isPlain;
 	private int sort;
 	
 	public Doc() {
@@ -40,6 +41,14 @@ public class Doc {
 
 	public void setSort(int sort) {
 		this.sort = sort;
+	}
+
+	public boolean isPlain() {
+		return isPlain;
+	}
+
+	public void setPlain(boolean isPlain) {
+		this.isPlain = isPlain;
 	}
 	
 }

@@ -2,12 +2,14 @@ package com.grice.model;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import com.grice.Grice;
 import com.grice.kit.MarkdownKit;
 
 public class Node implements Comparable<Node> {
-	
+
 	private int sort;
 	private String title;
 	private String name;
@@ -15,34 +17,38 @@ public class Node implements Comparable<Node> {
 	private boolean plain;
 	private boolean isRoot;
 	private List<Node> docs;
-	
+
 	public Node() {
 	}
 
 	public Node(String path) {
 		this.path = path;
 		String readme = path + File.separatorChar + "README.md";
-		Doc doc = MarkdownKit.getContent(readme);
+		Doc doc = MarkdownKit.getDoc(readme);
 		this.title = doc.getTitle();
 		this.isRoot = doc.isRoot();
 		this.sort = doc.getSort();
-		
+		this.plain = doc.isPlain();
+
 		File dir = new File(path);
 		File[] files = dir.listFiles();
 		this.docs = new ArrayList<Node>(files.length);
-		for(File file : files){
-			if(!"README.md".equals(file.getName())){
+		for (File file : files) {
+			if (!"README.md".equals(file.getName())) {
 				Node node = new Node();
-				Doc nodeDoc = MarkdownKit.getContent(file.getPath());
+				Doc nodeDoc = MarkdownKit.getDoc(file.getPath());
+				node.setPath(file.getPath());
 				node.setTitle(nodeDoc.getTitle());
 				node.setName(file.getName().replaceFirst(".md", ""));
 				node.setSort(nodeDoc.getSort());
 				node.setRoot(nodeDoc.isRoot());
+				node.setPlain(nodeDoc.isPlain());
 				docs.add(node);
 			}
 		}
+		Collections.sort(docs, Grice.comparator);
 	}
-	
+
 	public String getPath() {
 		return path;
 	}
@@ -82,7 +88,7 @@ public class Node implements Comparable<Node> {
 	public void setSort(int sort) {
 		this.sort = sort;
 	}
-	
+
 	public boolean isRoot() {
 		return isRoot;
 	}
@@ -101,13 +107,13 @@ public class Node implements Comparable<Node> {
 
 	@Override
 	public int compareTo(Node o) {
-		if(o.sort < this.sort){
+		if (o.sort < this.sort) {
 			return 1;
 		}
-		if(o.sort > this.sort){
+		if (o.sort > this.sort) {
 			return -1;
 		}
 		return 0;
 	}
-	
+
 }

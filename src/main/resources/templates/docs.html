@@ -6,45 +6,35 @@
 	<div class="four wide column">
 		<div class="ui vertical menu nav-menus">
 			#if(null != nodes)
+			<div class="ui styled fluid accordion">
 				#for(node : nodes)
-					<div class="item">
-					#if(node.plain)
-					<div class="header">${node.title}</div>
-					#else
-					<a class="header" href="/docs/${node.name}">${node.title}</a>
-					#end
+				<div class="title">
+				    <i class="#if(!node.plain)dropdown#end icon"></i>
+				    ${node.title}
+				</div>
+				<div class="content">
 					#if(null != node.docs)
-					<div class="menu">
+					<div class="transition hidden menu">
 				    	#for(doc : node.docs)
 				    	#if(null != doc.title)
 				    	<a class="item" href="/docs/${node.name}/${doc.name}">${doc.title}</a>
 				    	#end
 				    	#end
 				    </div>
-					#end	
-				  </div>
-				#end
-			#else
-			<div class="item">
-				<div class="header">${lang("docs.pages")}</div>
-				<div class="menu">
-					#for(page : pages)
-					<a class="item" href="/${page.name}">${page.title}</a>
 					#end
 				</div>
+				#end
 			</div>
 			#end
 		</div>
 	</div>
 	<div class="twelve wide column">
-		<div id="content" class="ui markdown segment">$!{content}</div>
+		<div id="article" class="ui markdown segment">${content}</div>
 		#if(extension.enableDuoShuo)
 		#include('./duoshuo.html')
 		#end
 	</div>
 </div>
 #include('./footer.html')
-<script type="text/javascript" src="//cdn.bootcss.com/marked/0.3.6/marked.min.js"></script>
-<script type="text/javascript" src="/static/js/docs.js"></script>
 </body>
 </html>

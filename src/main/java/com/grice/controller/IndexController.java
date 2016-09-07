@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.blade.kit.CollectionKit;
+import com.blade.kit.StringKit;
 import com.blade.mvc.annotation.Controller;
 import com.blade.mvc.annotation.JSON;
 import com.blade.mvc.annotation.PathVariable;
@@ -15,17 +17,15 @@ import com.blade.mvc.http.HttpMethod;
 import com.blade.mvc.http.Request;
 import com.blade.mvc.http.Response;
 import com.blade.mvc.view.ModelAndView;
+import com.grice.Grice;
 import com.grice.config.Constant;
 import com.grice.kit.MarkdownKit;
-import com.grice.kit.NodeComparator;
 import com.grice.model.Doc;
 import com.grice.model.Node;
 import com.grice.model.RestResponse;
 
 @Controller
 public class IndexController {
-	
-	private NodeComparator comparator = new NodeComparator();
 	
 	@Route(value = {"/", "index"}, method = HttpMethod.GET)
     public ModelAndView index(ModelAndView mav){
@@ -36,9 +36,23 @@ public class IndexController {
 	@Route(value = "docs", method = HttpMethod.GET)
     public ModelAndView docs(ModelAndView mav, Request request, Response response){
 		List<Node> nodes = this.getNodes();
-		mav.add("title", nodes.get(0).getTitle());
+		
+		Node first = nodes.get(0);
+		
+		String content = MarkdownKit.getDoc(first.getPath() + "/README.md").getContent();
+		String title = first.getTitle();
+		// 没有内容
+		if(StringKit.isBlank(content.trim())){
+			if(CollectionKit.isNotEmpty(first.getDocs())){
+				Node doc = first.getDocs().get(0);
+				content = MarkdownKit.getDoc(doc.getPath()).getContent();
+				title = doc.getTitle();
+			}
+		}
+		
+		mav.add("title", title);
 		mav.add("nodes", nodes);
-		mav.add("content", MarkdownKit.getContent(nodes.get(0).getPath() + "/README.md").getContent());
+		mav.add("content", content);
 		mav.setView("docs.html");
         return mav;
     }
@@ -52,7 +66,7 @@ public class IndexController {
 		String path = target + File.separatorChar + lang + File.separatorChar + node + File.separatorChar + "README.md";
 		
 		RestResponse<Doc> restResponse = new RestResponse<Doc>();
-		Doc doc = MarkdownKit.getContent(path);
+		Doc doc = MarkdownKit.getDoc(path);
 		restResponse.setPayload(doc);
         return restResponse;
     }
@@ -67,7 +81,7 @@ public class IndexController {
 		List<Node> nodes = this.getNodes();
 		
 		ModelAndView mav = new ModelAndView();
-		Doc doc = MarkdownKit.getContent(path);
+		Doc doc = MarkdownKit.getDoc(path);
 		mav.add("title", doc.getTitle());
 		mav.add("nodes", nodes);
 		mav.add("content", doc.getContent());
@@ -87,11 +101,12 @@ public class IndexController {
 		
 		String raw = target + File.separatorChar + lang + File.separatorChar + nodeName + File.separatorChar + docName + ".md";
 		
-		Doc doc = MarkdownKit.getContent(raw);
+		Doc doc = MarkdownKit.getDoc(raw);
 		
 		mav.add("title", doc.getTitle());
 		mav.add("nodes", nodes);
 		mav.add("content", doc.getContent());
+		
 		mav.setView("docs.html");
         return mav;
     }
@@ -105,7 +120,7 @@ public class IndexController {
 		String path = target + File.separatorChar + lang + File.separatorChar + nodeName + File.separatorChar + docName + ".md";
 		
 		RestResponse<Doc> restResponse = new RestResponse<Doc>();
-		Doc doc = MarkdownKit.getContent(path);
+		Doc doc = MarkdownKit.getDoc(path);
 		restResponse.setPayload(doc);
         return restResponse;
     }
@@ -128,7 +143,7 @@ public class IndexController {
 				nodes.add(node);
 			}
 		}
-		Collections.sort(nodes, comparator);
+		Collections.sort(nodes, Grice.comparator);
 		return nodes;
 	}
 	

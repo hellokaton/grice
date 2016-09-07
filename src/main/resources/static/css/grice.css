@@ -4,6 +4,17 @@
     font-weight: normal;
     font-style: normal;
 }
+.ui.styled.accordion .content {
+    margin: 0;
+    padding: 0;
+    padding-left: 17px;
+    padding-right: 17px;
+}
+.ui.styled.accordion .menu {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 0;
+}
 .octicon,
 .mega-octicon {
     font: normal normal normal 16px/1 octicons;

@@ -3,7 +3,6 @@ package com.grice.config;
 import static com.blade.Blade.$;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -24,9 +23,6 @@ public class RouteConfig implements BaseConfig{
 	
 	@Override
 	public void config(ApplicationConfig applicationConfig) {
-		
-		System.out.println("2 ...");
-		
 		String version = $().config().get("grice.version");
 		String site_name = $().config().get("grice.site.name");
 		String site_desc = $().config().get("grice.site.desc");
