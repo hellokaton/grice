@@ -10,7 +10,7 @@ import java.util.List;
 import com.blade.kit.CollectionKit;
 import com.blade.kit.StringKit;
 import com.blade.mvc.annotation.Controller;
-import com.blade.mvc.annotation.PathVariable;
+import com.blade.mvc.annotation.PathParam;
 import com.blade.mvc.annotation.Route;
 import com.blade.mvc.http.HttpMethod;
 import com.blade.mvc.http.Request;
@@ -77,7 +77,7 @@ public class IndexController {
 	 * @return
 	 */
 	@Route(value = "docs/:node", method = HttpMethod.GET)
-    public ModelAndView showRootDetail(ModelAndView mav, Request request, @PathVariable("node") String node){
+    public ModelAndView showRootDetail(ModelAndView mav, Request request, @PathParam("node") String node){
 		String target = $().config().get("grice.docs.target");
 		String lang = Constant.VIEW_CONTEXT.getValue("Lang").toString();
 		String path = target + File.separatorChar + lang + File.separatorChar + node + File.separatorChar + "README.md";
@@ -106,8 +106,8 @@ public class IndexController {
 	 */
 	@Route(value = "docs/:node/:doc", method = HttpMethod.GET)
     public ModelAndView showDetail(ModelAndView mav, Request request, 
-    		@PathVariable("node") String nodeName,
-    		@PathVariable("doc") String docName){
+    		@PathParam("node") String nodeName,
+    		@PathParam("doc") String docName){
 		
 		String target = $().config().get("grice.docs.target");
 		String lang = Constant.VIEW_CONTEXT.getValue("Lang").toString();
