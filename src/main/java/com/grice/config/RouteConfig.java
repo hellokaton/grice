@@ -8,8 +8,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import com.blade.annotation.Order;
-import com.blade.config.ApplicationConfig;
 import com.blade.config.BaseConfig;
+import com.blade.config.Configuration;
 import com.blade.ioc.annotation.Component;
 import com.blade.kit.StringKit;
 import com.grice.kit.PropKit;
@@ -22,7 +22,7 @@ import com.grice.model.Navbar;
 public class RouteConfig implements BaseConfig{
 	
 	@Override
-	public void config(ApplicationConfig applicationConfig) {
+	public void config(Configuration configuration) {
 		String version = $().config().get("grice.version");
 		String site_name = $().config().get("grice.site.name");
 		String site_desc = $().config().get("grice.site.desc");

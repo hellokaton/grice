@@ -134,14 +134,16 @@ public class IndexController {
 		String lang = Constant.VIEW_CONTEXT.getValue("Lang").toString();
 		String path = target + File.separatorChar + lang;
 		
-		List<Node> nodes = new ArrayList<Node>(16);
+		List<Node> nodes = CollectionKit.newArrayList(16);
 		File dir = new File(path);
 		File[] subDirs = dir.listFiles();
-		nodes = new ArrayList<Node>(subDirs.length);
-		for(File sub : subDirs){
-			if('.' != sub.getName().charAt(0)){
-				Node node = new Node(sub.getName().replace(".md", ""), sub.getPath());
-				nodes.add(node);
+		if(null != subDirs){
+			nodes = new ArrayList<Node>(subDirs.length);
+			for(File sub : subDirs){
+				if('.' != sub.getName().charAt(0)){
+					Node node = new Node(sub.getName().replace(".md", ""), sub.getPath());
+					nodes.add(node);
+				}
 			}
 		}
 		Collections.sort(nodes, Application.comparator);

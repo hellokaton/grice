@@ -55,7 +55,7 @@
     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
         $().get(<span class="hljs-string">"/"</span>, (request, response) -&gt; {
             response.html(<span class="hljs-string">"&lt;h1&gt;Hello blade!&lt;/h1&gt;"</span>);
-        }).start();
+        }).start(Application.class);
     }
 }
 </code></pre>
@@ -87,7 +87,7 @@
 
     $().before(<span class="hljs-string">"/.*"</span>, (request, response) -&gt; {
         System.out.println(<span class="hljs-string">"before..."</span>);
-    }).start();
+    }).start(Application.class);
 
 }
 </code></pre>
@@ -102,7 +102,7 @@
     $().get(<span class="hljs-string">"user/:uid"</span>, (request, response) -&amp;gt; {
         Integer uid = request.paramAsInt(<span class="hljs-string">"uid"</span>);
         response.text(<span class="hljs-string">"uid : "</span> + uid);
-    }).start();
+    }).start(Application.class);
 }
 
 </code></pre>

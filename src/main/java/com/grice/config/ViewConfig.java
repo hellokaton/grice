@@ -1,13 +1,12 @@
 package com.grice.config;
 
 import com.blade.annotation.Order;
-import com.blade.config.ApplicationConfig;
 import com.blade.config.BaseConfig;
+import com.blade.config.Configuration;
 import com.blade.ioc.annotation.Component;
 import com.blade.mvc.view.ViewSettings;
 import com.blade.mvc.view.template.JetbrickTemplateEngine;
 import com.grice.ext.Funcs;
-
 import jetbrick.template.resolver.GlobalResolver;
 
 @Component
@@ -15,7 +14,7 @@ import jetbrick.template.resolver.GlobalResolver;
 public class ViewConfig implements BaseConfig{
 	
 	@Override
-	public void config(ApplicationConfig applicationConfig) {
+	public void config(Configuration configuration) {
 		
 		System.out.println("1 ...");
 		
