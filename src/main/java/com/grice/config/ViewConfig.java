@@ -15,9 +15,7 @@ public class ViewConfig implements BaseConfig{
 	
 	@Override
 	public void config(Configuration configuration) {
-		
-		System.out.println("1 ...");
-		
+
 		JetbrickTemplateEngine templateEngine = new JetbrickTemplateEngine();
 		
 		// 模板引擎

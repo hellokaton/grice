@@ -4,7 +4,7 @@
 	
 	<groupId>io.github.biezhi</groupId>
 	<artifactId>grice</artifactId>
-	<version>0.0.3</version>
+	<version>0.0.4</version>
 	<packaging>jar</packaging>
 	
 	<name>grice</name>
@@ -18,17 +18,17 @@
 		<dependency>
 			<groupId>com.bladejava</groupId>
 			<artifactId>blade-core</artifactId>
-			<version>1.7.0-alpha</version>
+			<version>1.7.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.bladejava</groupId>
 			<artifactId>blade-template-jetbrick</artifactId>
-			<version>0.0.7</version>
+			<version>0.0.8</version>
 		</dependency>
 		<dependency>
 			<groupId>com.bladejava</groupId>
 			<artifactId>blade-embed-jetty</artifactId>
-			<version>0.0.7</version>
+			<version>0.0.9</version>
 		</dependency>
 	</dependencies>
 	
@@ -74,7 +74,7 @@
 						</manifest>
 						<manifestEntries>
                             <!-- 在Class-Path下添加配置文件的路径 -->
-                            <Class-Path>conf/</Class-Path>
+                            <Class-Path>config/</Class-Path>
                         </manifestEntries>
 					</archive>
 				</configuration>
