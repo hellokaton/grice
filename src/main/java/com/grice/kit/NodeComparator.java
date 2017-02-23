@@ -1,8 +1,8 @@
 package com.grice.kit;
 
-import java.util.Comparator;
-
 import com.grice.model.Node;
+
+import java.util.Comparator;
 
 public class NodeComparator implements Comparator<Node> {
     public int compare(Node o1, Node o2) {

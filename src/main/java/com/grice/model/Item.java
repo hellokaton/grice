@@ -2,57 +2,57 @@ package com.grice.model;
 
 public class Item {
 
-	private String link;
-	private String icon;
-	private String locale;
-	private boolean blank;
-	
-	public Item() {
-	}
-	
-	public Item(String link, String icon, String locale, boolean blank) {
-		super();
-		this.link = link;
-		this.icon = icon;
-		this.locale = locale;
-		this.blank = blank;
-	}
+    private String link;
+    private String icon;
+    private String locale;
+    private boolean blank;
 
-	public String getLink() {
-		return link;
-	}
+    public Item() {
+    }
 
-	public void setLink(String link) {
-		this.link = link;
-	}
+    public Item(String link, String icon, String locale, boolean blank) {
+        super();
+        this.link = link;
+        this.icon = icon;
+        this.locale = locale;
+        this.blank = blank;
+    }
 
-	public String getIcon() {
-		return icon;
-	}
+    public String getLink() {
+        return link;
+    }
 
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
+    public void setLink(String link) {
+        this.link = link;
+    }
 
-	public String getLocale() {
-		return locale;
-	}
+    public String getIcon() {
+        return icon;
+    }
 
-	public void setLocale(String locale) {
-		this.locale = locale;
-	}
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 
-	public boolean isBlank() {
-		return blank;
-	}
+    public String getLocale() {
+        return locale;
+    }
 
-	public void setBlank(boolean blank) {
-		this.blank = blank;
-	}
+    public void setLocale(String locale) {
+        this.locale = locale;
+    }
 
-	@Override
-	public String toString() {
-		return "Item [link=" + link + ", icon=" + icon + ", locale=" + locale + ", blank=" + blank + "]";
-	}
-	
+    public boolean isBlank() {
+        return blank;
+    }
+
+    public void setBlank(boolean blank) {
+        this.blank = blank;
+    }
+
+    @Override
+    public String toString() {
+        return "Item [link=" + link + ", icon=" + icon + ", locale=" + locale + ", blank=" + blank + "]";
+    }
+
 }

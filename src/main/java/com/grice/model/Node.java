@@ -1,13 +1,12 @@
 package com.grice.model;
 
+import com.grice.init.Constant;
+import com.grice.kit.MarkdownKit;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import com.grice.Application;
-import com.grice.init.Constant;
-import com.grice.kit.MarkdownKit;
 
 public class Node implements Comparable<Node> {
 
@@ -20,7 +19,7 @@ public class Node implements Comparable<Node> {
 	private boolean plain;
 	private boolean isRoot;
 	private List<Node> docs;
-	
+
 	public Node() {
 	}
 
@@ -33,7 +32,7 @@ public class Node implements Comparable<Node> {
 		this.isRoot = doc.isRoot();
 		this.sort = doc.getSort();
 		this.plain = doc.isPlain();
-		
+
 		File dir = new File(path);
 		File[] files = dir.listFiles();
 		this.docs = new ArrayList<Node>(files.length);

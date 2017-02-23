@@ -2,35 +2,35 @@ package com.grice.model;
 
 public class Extension {
 
-	private boolean enableSearch;
-	private boolean enableDuoShuo;
-	private String duoShuoShortName;
+    private boolean enableSearch;
+    private boolean enableDuoShuo;
+    private String duoShuoShortName;
 
-	public Extension() {
-	}
+    public Extension() {
+    }
 
-	public boolean isEnableSearch() {
-		return enableSearch;
-	}
+    public boolean isEnableSearch() {
+        return enableSearch;
+    }
 
-	public void setEnableSearch(boolean enableSearch) {
-		this.enableSearch = enableSearch;
-	}
+    public void setEnableSearch(boolean enableSearch) {
+        this.enableSearch = enableSearch;
+    }
 
-	public boolean isEnableDuoShuo() {
-		return enableDuoShuo;
-	}
-	
-	public void setEnableDuoShuo(boolean enableDuoShuo) {
-		this.enableDuoShuo = enableDuoShuo;
-	}
+    public boolean isEnableDuoShuo() {
+        return enableDuoShuo;
+    }
 
-	public String getDuoShuoShortName() {
-		return duoShuoShortName;
-	}
+    public void setEnableDuoShuo(boolean enableDuoShuo) {
+        this.enableDuoShuo = enableDuoShuo;
+    }
 
-	public void setDuoShuoShortName(String duoShuoShortName) {
-		this.duoShuoShortName = duoShuoShortName;
-	}
+    public String getDuoShuoShortName() {
+        return duoShuoShortName;
+    }
+
+    public void setDuoShuoShortName(String duoShuoShortName) {
+        this.duoShuoShortName = duoShuoShortName;
+    }
 
 }

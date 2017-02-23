@@ -27,12 +27,13 @@ public class RestResponse<T> {
      */
     private long timestamp;
 
-    public static <T> RestResponse<T> build(T data){
+    public static <T> RestResponse<T> build(T data) {
         RestResponse<T> r = new RestResponse<T>();
         r.setPayload(data);
         r.setSuccess(true);
         return r;
     }
+
     public RestResponse() {
         this.timestamp = System.currentTimeMillis() / 1000;
     }
