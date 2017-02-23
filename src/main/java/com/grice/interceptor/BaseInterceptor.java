@@ -4,7 +4,7 @@ import com.blade.mvc.annotation.Intercept;
 import com.blade.mvc.http.Request;
 import com.blade.mvc.http.Response;
 import com.blade.mvc.interceptor.Interceptor;
-import com.grice.config.Constant;
+import com.grice.init.Constant;
 
 @Intercept
 public class BaseInterceptor implements Interceptor {

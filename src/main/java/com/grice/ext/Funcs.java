@@ -1,6 +1,6 @@
 package com.grice.ext;
 
-import com.grice.config.Constant;
+import com.grice.init.Constant;
 
 public class Funcs {
 	

@@ -20,9 +20,9 @@ public final class PropKit {
 		Properties props = new Properties();
 		try {
 			props.load(new InputStreamReader(PropKit.class.getClassLoader().getResourceAsStream(path), "UTF-8"));
-			
-			Map<String, String> map = new HashMap<String, String>(props.size());
-			Set<Entry<Object, Object>> set = props.entrySet();
+
+            Map<String, String> map = new HashMap<>(props.size());
+            Set<Entry<Object, Object>> set = props.entrySet();
 			if(CollectionKit.isNotEmpty(set)){
 				Iterator<Map.Entry<Object, Object>> it = set.iterator();
 				while (it.hasNext()) {

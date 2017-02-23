@@ -10,7 +10,7 @@ import com.blade.mvc.annotation.RestController;
 import com.blade.mvc.annotation.Route;
 import com.blade.mvc.http.HttpMethod;
 import com.blade.mvc.http.Request;
-import com.grice.config.Constant;
+import com.grice.init.Constant;
 import com.grice.kit.MarkdownKit;
 import com.grice.model.Node;
 import com.grice.model.RestResponse;
