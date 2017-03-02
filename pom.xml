@@ -4,7 +4,7 @@
 	
 	<groupId>io.github.biezhi</groupId>
 	<artifactId>grice</artifactId>
-	<version>0.0.5</version>
+	<version>0.0.6</version>
 	<packaging>jar</packaging>
 	
 	<name>grice</name>
@@ -18,7 +18,7 @@
 		<dependency>
 			<groupId>com.bladejava</groupId>
 			<artifactId>blade-core</artifactId>
-			<version>1.7.1-alpha</version>
+			<version>1.7.1-beta</version>
 		</dependency>
 		<dependency>
 			<groupId>com.bladejava</groupId>
@@ -28,17 +28,57 @@
 		<dependency>
 			<groupId>com.bladejava</groupId>
 			<artifactId>blade-embed-jetty</artifactId>
-			<version>0.1.0</version>
+			<version>0.1.2</version>
 		</dependency>
 	</dependencies>
-	
+
+	<profiles>
+		<profile>
+			<id>prod</id>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/java</directory>
+						<filtering>false</filtering>
+					</resource>
+					<!-- 把放在根目录下的脚本文件.sh,.bat拷贝到bin目录中 -->
+					<resource>
+						<directory>.</directory>
+						<includes>
+							<include>**/*.sh</include>
+							<include>**/*.bat</include>
+						</includes>
+						<targetPath>${project.build.directory}/bin</targetPath>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		<profile>
+			<id>dev</id>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/java</directory>
+						<filtering>false</filtering>
+					</resource>
+					<resource>
+						<directory>src/main/resources</directory>
+						<filtering>false</filtering>
+					</resource>
+					<resource>
+						<directory>src/main/test</directory>
+						<filtering>false</filtering>
+					</resource>
+					<resource>
+						<directory>src/test/resources</directory>
+						<filtering>false</filtering>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+	</profiles>
+
 	<build>
-		<resources>
-			<resource>
-				<directory>src/main/java</directory>
-				<filtering>false</filtering>
-			</resource>
-		</resources>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
