@@ -1,13 +1,15 @@
 package com.grice.model;
 
-import com.grice.bootstrap.Constant;
 import com.grice.kit.MarkdownKit;
+import lombok.Data;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+@Data
 public class Node implements Comparable<Node> {
 
 	private int sort;
@@ -35,7 +37,7 @@ public class Node implements Comparable<Node> {
 
 		File dir = new File(path);
 		File[] files = dir.listFiles();
-		this.docs = new ArrayList<Node>(files.length);
+		this.docs = new ArrayList<>(files.length);
 		for (File file : files) {
 			if (!"README.md".equals(file.getName())) {
 				Node node = MarkdownKit.getNodeDoc(file.getPath());
@@ -43,90 +45,12 @@ public class Node implements Comparable<Node> {
 				docs.add(node);
 			}
 		}
-		Collections.sort(docs, Constant.comparator);
-	}
-
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public List<Node> getDocs() {
-		return docs;
-	}
-
-	public void setDocs(List<Node> docs) {
-		this.docs = docs;
-	}
-
-	public int getSort() {
-		return sort;
-	}
-
-	public void setSort(int sort) {
-		this.sort = sort;
-	}
-
-	public boolean isRoot() {
-		return isRoot;
-	}
-
-	public void setRoot(boolean isRoot) {
-		this.isRoot = isRoot;
-	}
-
-	public boolean isPlain() {
-		return plain;
-	}
-
-	public void setPlain(boolean plain) {
-		this.plain = plain;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public String getParent_name() {
-		return parent_name;
-	}
-
-	public void setParent_name(String parent_name) {
-		this.parent_name = parent_name;
+		docs.sort(Comparator.comparingInt(Node::getSort));
 	}
 
 	@Override
 	public int compareTo(Node o) {
-		if (o.sort < this.sort) {
-			return 1;
-		}
-		if (o.sort > this.sort) {
-			return -1;
-		}
-		return 0;
+		return Integer.compare(this.sort, o.sort);
 	}
 
 }

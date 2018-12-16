@@ -9,16 +9,13 @@ import com.blade.mvc.http.HttpMethod;
 import com.blade.mvc.http.Request;
 import com.blade.mvc.ui.ModelAndView;
 import com.grice.bootstrap.BootStrap;
-import com.grice.bootstrap.Constant;
 import com.grice.kit.MarkdownKit;
 import com.grice.model.Node;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-
-import static com.blade.Blade.$;
 
 /**
  * 页面控制器
@@ -127,7 +124,7 @@ public class IndexController {
         File       dir     = new File(path);
         File[]     subDirs = dir.listFiles();
         if (null != subDirs) {
-            nodes = new ArrayList<Node>(subDirs.length);
+            nodes = new ArrayList<>(subDirs.length);
             for (File sub : subDirs) {
                 if ('.' != sub.getName().charAt(0)) {
                     Node node = new Node(sub.getName().replace(".md", ""), sub.getPath());
@@ -135,7 +132,7 @@ public class IndexController {
                 }
             }
         }
-        Collections.sort(nodes, Constant.comparator);
+        nodes.sort(Comparator.comparingInt(Node::getSort));
         return nodes;
     }
 
