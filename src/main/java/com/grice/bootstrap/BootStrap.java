@@ -5,7 +5,7 @@ import com.blade.Environment;
 import com.blade.ioc.annotation.Bean;
 import com.blade.loader.BladeLoader;
 import com.blade.mvc.view.template.JetbrickTemplateEngine;
-import com.grice.kit.PropKit;
+import com.grice.util.GriceUtil;
 import com.grice.model.Extension;
 import com.grice.model.Item;
 import com.grice.model.Navbar;
@@ -21,6 +21,8 @@ public class BootStrap implements BladeLoader {
 
     public static JetGlobalContext VIEW_CONTEXT = null;
 
+    public static Environment ENV;
+
     @Override
     public void load(Blade blade) {
         // template
@@ -31,15 +33,15 @@ public class BootStrap implements BladeLoader {
         blade.templateEngine(templateEngine);
 
         // configuration
-        Environment env = blade.environment();
+        ENV = blade.environment();
 
-        String version      = env.getOrNull("grice.version");
-        String siteName     = env.getOrNull("grice.site.name");
-        String siteDesc     = env.getOrNull("grice.site.desc");
-        String siteURL      = env.getOrNull("grice.site.url");
-        String i18nLANGs    = env.getOrNull("grice.i18n.langs");
-        String i18nNames    = env.getOrNull("grice.i18n.names");
-        String navbarString = env.getOrNull("grice.navbar");
+        String version      = ENV.getOrNull("grice.version");
+        String siteName     = ENV.getOrNull("grice.site.name");
+        String siteDesc     = ENV.getOrNull("grice.site.desc");
+        String siteURL      = ENV.getOrNull("grice.site.url");
+        String i18nLANGs    = ENV.getOrNull("grice.i18n.langs");
+        String i18nNames    = ENV.getOrNull("grice.i18n.names");
+        String navbarString = ENV.getOrNull("grice.navbar");
 
         Map<String, Object> siteMap = new HashMap<String, Object>();
         siteMap.put("name", siteName);
@@ -57,7 +59,7 @@ public class BootStrap implements BladeLoader {
 
             Constant.ALL_LANGS.put(langs[i], langNames[i]);
 
-            Map<String, String>            langMap  = PropKit.load("locale/" + langs[i] + ".lang");
+            Map<String, String>            langMap  = GriceUtil.load("locale/" + langs[i] + ".lang");
             Set<Map.Entry<String, String>> entrySet = langMap.entrySet();
             for (Map.Entry<String, String> entry : entrySet) {
                 Constant.LOCALES.put(langs[i] + "." + entry.getKey(), entry.getValue());
@@ -71,19 +73,19 @@ public class BootStrap implements BladeLoader {
 
         Navbar navbar = new Navbar();
         for (String nav : navs) {
-            String  icon   = env.getOrNull("grice.navbar." + nav.trim() + ".icon");
-            String  locale = env.getOrNull("grice.navbar." + nav.trim() + ".locale");
-            String  link   = env.getOrNull("grice.navbar." + nav.trim() + ".link");
-            Boolean blank  = env.getBoolean("grice.navbar." + nav.trim() + ".blank", false);
+            String  icon   = ENV.getOrNull("grice.navbar." + nav.trim() + ".icon");
+            String  locale = ENV.getOrNull("grice.navbar." + nav.trim() + ".locale");
+            String  link   = ENV.getOrNull("grice.navbar." + nav.trim() + ".link");
+            Boolean blank  = ENV.getBoolean("grice.navbar." + nav.trim() + ".blank", false);
             Item    item   = new Item(link, icon, locale, blank);
             navbar.addItem(item);
         }
         VIEW_CONTEXT.set(Navbar.class, "navbar", navbar);
 
         Extension extension     = new Extension();
-        Boolean   enableDuoShuo = env.getBooleanOrNull("grice.extension.enableDuoShuo");
+        Boolean   enableDuoShuo = ENV.getBooleanOrNull("grice.extension.enableDuoShuo");
         extension.setEnableDuoShuo(enableDuoShuo);
-        String duoShuoShortName = env.getOrNull("grice.extension.duoShuoShortName");
+        String duoShuoShortName = ENV.getOrNull("grice.extension.duoShuoShortName");
         extension.setDuoShuoShortName(duoShuoShortName);
         VIEW_CONTEXT.set(Extension.class, "extension", extension);
     }

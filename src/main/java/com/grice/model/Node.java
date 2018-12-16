@@ -1,11 +1,10 @@
 package com.grice.model;
 
-import com.grice.kit.MarkdownKit;
+import com.grice.util.GriceUtil;
 import lombok.Data;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class Node implements Comparable<Node> {
 		this.name = name;
 		this.path = path;
 		String readme = path + File.separatorChar + "README.md";
-		Node doc = MarkdownKit.getNodeDoc(readme);
+		Node doc = GriceUtil.getNodeDoc(readme);
 		this.title = doc.getTitle();
 		this.isRoot = doc.isRoot();
 		this.sort = doc.getSort();
@@ -40,7 +39,7 @@ public class Node implements Comparable<Node> {
 		this.docs = new ArrayList<>(files.length);
 		for (File file : files) {
 			if (!"README.md".equals(file.getName())) {
-				Node node = MarkdownKit.getNodeDoc(file.getPath());
+				Node node = GriceUtil.getNodeDoc(file.getPath());
 				node.parent_name = this.name;
 				docs.add(node);
 			}
