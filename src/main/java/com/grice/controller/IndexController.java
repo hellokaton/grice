@@ -2,14 +2,14 @@ package com.grice.controller;
 
 import com.blade.kit.CollectionKit;
 import com.blade.kit.StringKit;
-import com.blade.mvc.annotation.Controller;
+import com.blade.mvc.annotation.Path;
 import com.blade.mvc.annotation.PathParam;
 import com.blade.mvc.annotation.Route;
 import com.blade.mvc.http.HttpMethod;
 import com.blade.mvc.http.Request;
-import com.blade.mvc.http.Response;
-import com.blade.mvc.view.ModelAndView;
-import com.grice.init.Constant;
+import com.blade.mvc.ui.ModelAndView;
+import com.grice.bootstrap.BootStrap;
+import com.grice.bootstrap.Constant;
 import com.grice.kit.MarkdownKit;
 import com.grice.model.Node;
 
@@ -23,36 +23,28 @@ import static com.blade.Blade.$;
 /**
  * 页面控制器
  */
-@Controller
+@Path
 public class IndexController {
 
     /**
      * 首页
-     *
-     * @param mav
-     * @return
      */
     @Route(value = {"/", "index"}, method = HttpMethod.GET)
-    public ModelAndView index(ModelAndView mav) {
-        mav.setView("home.html");
-        return mav;
+    public String index() {
+        return "home.html";
     }
 
     /**
      * 文档页
-     *
-     * @param mav
-     * @param request
-     * @param response
-     * @return
      */
     @Route(value = "docs", method = HttpMethod.GET)
-    public ModelAndView docs(ModelAndView mav, Request request, Response response) {
+    public String docs(ModelAndView mav) {
         List<Node> nodes = this.getNodes();
 
         Node first = nodes.get(0);
 
         String content = MarkdownKit.getNodeDoc(first.getPath() + "/README.md").getContent();
+
         String title = first.getTitle();
         // 没有内容
         if (StringKit.isBlank(content.trim())) {
@@ -66,24 +58,18 @@ public class IndexController {
         mav.add("title", title);
         mav.add("nodes", nodes);
         mav.add("content", content);
-        mav.setView("docs.html");
-        return mav;
+        return "docs.html";
     }
 
     /**
      * 节点页
-     *
-     * @param mav
-     * @param request
-     * @param node
-     * @return
      */
     @Route(value = "docs/:node", method = HttpMethod.GET)
-    public ModelAndView showRootDetail(ModelAndView mav, Request request, @PathParam("node") String node) {
-        String target = $().config().get("grice.docs.target");
-        String lang = Constant.VIEW_CONTEXT.getValue("Lang").toString();
-        String path = target + File.separatorChar + lang + File.separatorChar + node + File.separatorChar + "README.md";
-        List<Node> nodes = this.getNodes();
+    public ModelAndView showRootDetail(ModelAndView mav, @PathParam String node) {
+        String     target = $().config().get("grice.docs.target");
+        String     lang   = BootStrap.VIEW_CONTEXT.getValue("Lang").toString();
+        String     path   = target + File.separatorChar + lang + File.separatorChar + node + File.separatorChar + "README.md";
+        List<Node> nodes  = this.getNodes();
         mav.add("nodes", nodes);
 
         Node doc = MarkdownKit.getNodeDoc(path);
@@ -107,14 +93,14 @@ public class IndexController {
      * @param docName
      * @return
      */
-    @Route(value = "docs/:node/:doc", method = HttpMethod.GET)
+    @Route(value = "docs/:nodeName/:docName", method = HttpMethod.GET)
     public ModelAndView showDetail(ModelAndView mav, Request request,
-                                   @PathParam("node") String nodeName,
-                                   @PathParam("doc") String docName) {
+                                   @PathParam String nodeName,
+                                   @PathParam String docName) {
 
-        String target = $().config().get("grice.docs.target");
-        String lang = Constant.VIEW_CONTEXT.getValue("Lang").toString();
-        List<Node> nodes = this.getNodes();
+        String     target = $().config().get("grice.docs.target");
+        String     lang   = BootStrap.VIEW_CONTEXT.getValue("Lang").toString();
+        List<Node> nodes  = this.getNodes();
         mav.add("nodes", nodes);
 
         String raw = target + File.separatorChar + lang + File.separatorChar + nodeName + File.separatorChar + docName + ".md";
@@ -134,12 +120,12 @@ public class IndexController {
     private List<Node> getNodes() {
 
         String target = $().config().get("grice.docs.target");
-        String lang = Constant.VIEW_CONTEXT.getValue("Lang").toString();
-        String path = target + File.separatorChar + lang;
+        String lang   = BootStrap.VIEW_CONTEXT.getValue("Lang").toString();
+        String path   = target + File.separatorChar + lang;
 
-        List<Node> nodes = CollectionKit.newArrayList(16);
-        File dir = new File(path);
-        File[] subDirs = dir.listFiles();
+        List<Node> nodes   = new ArrayList<>(16);
+        File       dir     = new File(path);
+        File[]     subDirs = dir.listFiles();
         if (null != subDirs) {
             nodes = new ArrayList<Node>(subDirs.length);
             for (File sub : subDirs) {

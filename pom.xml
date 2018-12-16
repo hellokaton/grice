@@ -4,7 +4,7 @@
 	
 	<groupId>io.github.biezhi</groupId>
 	<artifactId>grice</artifactId>
-	<version>0.0.6</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 	
 	<name>grice</name>
@@ -17,44 +17,122 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.bladejava</groupId>
-			<artifactId>blade-core</artifactId>
-			<version>1.7.1-beta</version>
+			<artifactId>blade-mvc</artifactId>
+			<version>2.0.13.BETA</version>
 		</dependency>
 		<dependency>
 			<groupId>com.bladejava</groupId>
 			<artifactId>blade-template-jetbrick</artifactId>
-			<version>0.0.9</version>
+			<version>0.1.3</version>
 		</dependency>
 		<dependency>
-			<groupId>com.bladejava</groupId>
-			<artifactId>blade-embed-jetty</artifactId>
-			<version>0.1.2</version>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.22</version>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>oss-releases</id>
+			<url>https://oss.sonatype.org/content/repositories/releases</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>oss-snapshots</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<build>
+		<finalName>grice</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<appendAssemblyId>false</appendAssemblyId>
+					<descriptors>
+						<descriptor>package.xml</descriptor>
+					</descriptors>
+					<outputDirectory>${project.build.directory}/dist/</outputDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>com.grice.Application</mainClass>
+							<classpathPrefix>lib/</classpathPrefix>
+							<addClasspath>true</addClasspath>
+						</manifest>
+						<manifestEntries>
+							<Class-Path>resources/</Class-Path>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 	<profiles>
 		<profile>
 			<id>prod</id>
+			<properties>
+				<profiles.active>prod</profiles.active>
+			</properties>
 			<build>
 				<resources>
 					<resource>
 						<directory>src/main/java</directory>
 						<filtering>false</filtering>
-					</resource>
-					<!-- 把放在根目录下的脚本文件.sh,.bat拷贝到bin目录中 -->
-					<resource>
-						<directory>.</directory>
-						<includes>
-							<include>**/*.sh</include>
-							<include>**/*.bat</include>
-						</includes>
-						<targetPath>${project.build.directory}/bin</targetPath>
+						<excludes>
+							<exclude>**/*.java</exclude>
+						</excludes>
 					</resource>
 				</resources>
 			</build>
 		</profile>
 		<profile>
 			<id>dev</id>
+			<properties>
+				<profiles.active>dev</profiles.active>
+			</properties>
+			<activation>
+				<!-- Set to activate this configuration by default -->
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<build>
 				<resources>
 					<resource>
@@ -78,47 +156,4 @@
 		</profile>
 	</profiles>
 
-	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
-			
-			<!-- package -->
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<appendAssemblyId>false</appendAssemblyId>
-					<descriptors>
-						<descriptor>assembly.xml</descriptor>
-						<!-- <descriptor>src/main/resources/assembly.xml</descriptor> -->
-					</descriptors>
-					<outputDirectory>${project.build.directory}/dist/</outputDirectory>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<mainClass>com.grice.Application</mainClass>
-							<classpathPrefix>lib/</classpathPrefix>
-							<addClasspath>true</addClasspath>
-						</manifest>
-						<manifestEntries>
-                            <!-- 在Class-Path下添加配置文件的路径 -->
-                            <Class-Path>config/</Class-Path>
-                        </manifestEntries>
-					</archive>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 </project>

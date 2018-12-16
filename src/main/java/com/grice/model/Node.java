@@ -1,6 +1,6 @@
 package com.grice.model;
 
-import com.grice.init.Constant;
+import com.grice.bootstrap.Constant;
 import com.grice.kit.MarkdownKit;
 
 import java.io.File;
